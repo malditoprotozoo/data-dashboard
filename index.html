@@ -19,7 +19,7 @@
       <nav>
         <div id="city">
           <h2 class="upper inline hq">Santiago de Chile 2017 - II</h2>
-          <span class="icon-caret-down"></span>
+          <span id="down" class="icon-caret-down"></span>
         </div>
         <div id="pages">
           <h3 class="upper inline">Overview</h3>
@@ -28,9 +28,57 @@
         </div>
       </nav>
       <div id="content">
-        <div id="enrollment" class="small-chart"></div>
-        <div id="achievement" class="small-chart"></div>
-        <div id="nps" class="small-chart"></div>
+        <div id="enrollment" class="small-chart">
+          <h3 class="upper">Enrollment</h3>
+          <div class="little-boxes">
+            <span id="enrolled" class="counter">0</span>
+            <span class="upper small-size"># Students Currently Enrolled</span>
+          </div>
+          <div class="little-boxes">
+            <span id="drop-percentage" class="counter">0</span>
+            <span class="upper small-size">% Dropout</span>
+          </div>
+        </div>
+        <div id="achievement" class="small-chart">
+          <h3 class="upper">Achievement</h3>
+          <div class="little-boxes">
+            <span id="target" class="counter">0</span>
+            <span class="upper small-size"># Students that meet the target</span>
+          </div>
+          <div class="little-boxes">
+            <span id="total-percentage" class="counter">0</span>
+            <span class="upper small-size">% of total</span>
+          </div>
+        </div>
+        <div id="nps" class="small-chart">
+          <h3 class="upper">Net Promoter Score</h3>
+          <div class="little-boxes">
+            <span id="nps-counter" class="counter">0</span>
+            <span class="upper small-size">% Cumulative NPS</span>
+          </div>
+          <div class="little-boxes">
+            <h4>
+              <span>0 </span><span>Promoters</span>
+            </h4>
+            <h4>
+              <span>0 </span><span>Passive</span>
+            </h4>
+            <h4>
+              <span>0 </span><span>Detractors</span>
+            </h4>
+          </div>
+        </div>
+        <div id="tech-skills" class="big-chart"></div>
+        <div id="life-skills" class="big-chart"></div>
+        <div id="student-satisfaction" class="small-chart">
+          
+        </div>
+        <div id="teacher-rating" class="small-chart">
+          
+        </div>
+        <div id="jedi-rating" class="small-chart">
+          
+        </div>
       </div>
     </div>
 		<!-- Base de datos, ideal cargar los datos cuando carga toda la página, windows on log or something like that -->

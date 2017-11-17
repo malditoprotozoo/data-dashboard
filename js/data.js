@@ -3645,7 +3645,7 @@ var data = {
           'sprints': []
         },
         {
-          'name': 'L;urette Shellum',
+          'name': 'Lurette Shellum',
           'photo': 'http://dummyimage.com/162x183.png/5fa2dd/ffffff',
           'active': false,
           'sprints': []

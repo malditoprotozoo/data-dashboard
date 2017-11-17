@@ -16,21 +16,29 @@ body {
 	width: 100%;
 }
 
-#header {
-
-}
-
 #logo {
 	width: 210px;
 	margin: 0 auto;
 }
 
+#city {
+	cursor: pointer;
+	width: 400px;
+}
+
 nav {
-	width: 100%;
+	max-width: 100%;
+	min-width: 690px;
 	height: 130px;
 	background-color: #E1E1E1;
 	padding-left: 100px;
 	padding-right: 100px;
+	padding-top: 30px;
+}
+
+nav h2 {
+	padding: 0;
+	margin: 0;
 }
 
 .hq {
@@ -57,18 +65,71 @@ nav {
 }
 
 #content {
-	background-color: #f7f7f7;
+	background-color: #F7F7F7;
 	padding-left: 100px;
 	padding-right: 100px;
 	padding-top: 60px;
+	padding-bottom: 100px;
 }
 
 .small-chart {
 	background-color: white;
-	width: 30%;
-	height: 350px;
+	width: 345px;
+	height: 335px;
 	display: inline-block;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	margin-right: 30px;
+	vertical-align: top;
+	padding: 20px;
 }
 
+.small-chart h3 {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+.little-boxes {
+	display: inline-block;
+	width: 150px;
+	height: 65px;
+	background-color: #F7F7F7;
+	vertical-align: top;
+	padding: 3px;
+	text-align: center;
+	line-height: 8px;
+}
+
+#nps .little-boxes:nth-child(3) {
+	font-size: 15px;
+	line-height: 20px;
+	text-align: left;
+}
+
+#nps .little-boxes:nth-child(3) h4 {
+	margin: 0;
+	padding: 0;
+	font-weight: 400;
+}
+
+.small-size {
+	font-size: 9px;
+}
+
+.counter {
+	display: block;
+	font-weight: 700;
+	font-size: 25px;
+	margin-top: 8px;
+	margin-bottom: 15px;
+}
+
+.big-chart {
+	width: 1103px;
+	height: 550px;
+	background-color: white;
+	margin-top: 90px;
+}
+
+#life-skills {
+	margin-bottom: 90px;
+}
