@@ -13,7 +13,10 @@
     <div id="container">
       <header>
         <div id="logo">
-          <img src="assets/images/logo-laboratoria.svg" alt="Logo Laboratoria">
+          <a href="index.html"><img src="assets/images/logo-laboratoria.svg" alt="Logo Laboratoria"></a>
+        </div>
+        <div id="menu">
+          <span class="icon-navicon"></span>
         </div>
       </header>
       <nav>
@@ -22,9 +25,9 @@
           <span id="down" class="icon-caret-down"></span>
         </div>
         <div id="pages">
-          <h3 class="upper inline">Overview</h3>
-          <h3 class="upper inline">Students</h3>
-          <h3 class="upper inline">Teachers</h3>
+          <h3 class="upper inline"><a href="index.html" class="selected">Overview</a></h3>
+          <h3 class="upper inline"><a href="students.html">Students</a></h3>
+          <h3 class="upper inline"><a href="teachers.html">Teachers</a></h3>
         </div>
       </nav>
       <div id="content">
@@ -47,7 +50,7 @@
           </div>
           <div class="little-boxes">
             <span id="total-percentage" class="counter">0</span>
-            <span class="upper small-size">% of total</span>
+            <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
           </div>
         </div>
         <div id="nps" class="small-chart">
@@ -58,30 +61,61 @@
           </div>
           <div class="little-boxes">
             <h4>
-              <span>0 </span><span>Promoters</span>
+              <span id="promoters">0 </span><span>Promoters</span>
             </h4>
             <h4>
-              <span>0 </span><span>Passive</span>
+              <span id="passive">0 </span><span>Passive</span>
             </h4>
             <h4>
-              <span>0 </span><span>Detractors</span>
+              <span id="detractors">0 </span><span>Detractors</span>
             </h4>
           </div>
         </div>
-        <div id="tech-skills" class="big-chart"></div>
-        <div id="life-skills" class="big-chart"></div>
+        <div id="tech-skills" class="big-chart">
+          <h3 class="upper">Tech Skills</h3>
+          <div class="little-boxes">
+            <span id="tech-skills-count" class="counter">0</span>
+            <span class="upper small-size"># Students that meet the target</span>
+          </div>
+          <div class="little-boxes">
+            <span id="tech-skills-percentage" class="counter">0</span>
+            <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
+          </div>
+        </div>
+        <div id="life-skills" class="big-chart">
+          <h3 class="upper">Life Skills</h3>
+          <div class="little-boxes">
+            <span id="life-skills-counter" class="counter">0</span>
+            <span class="upper small-size"># Overall Class Average</span>
+          </div>
+          <div class="little-boxes">
+            <span id="life-skills-percentage" class="counter">0</span>
+            <span class="upper small-size"># Of Students that meet the target</span>
+          </div>
+        </div>
         <div id="student-satisfaction" class="small-chart">
-          
+          <h3 class="upper">Student Satisfaction</h3>
+          <div class="little-boxes">
+            <span id="student-sat-percentage" class="counter">0</span>
+            <span class="upper small-size">% Meeting or exceeding expectations (cumulative)</span>
+          </div>
         </div>
         <div id="teacher-rating" class="small-chart">
-          
+          <h3 class="upper">Teacher Rating</h3>
+          <div class="little-boxes">
+            <span id="teacher-rat-overall" class="counter">0</span>
+            <span class="upper small-size">Overall teacher rating (cumulative)</span>
+          </div>
         </div>
         <div id="jedi-rating" class="small-chart">
-          
+          <h3 class="upper">Jedi Master Rating</h3>
+          <div class="little-boxes">
+            <span id="jedi-rating-overall" class="counter">0</span>
+            <span class="upper small-size">Overall Jedi Rating (cumulative)</span>
+          </div>
         </div>
       </div>
     </div>
-		<!-- Base de datos, ideal cargar los datos cuando carga toda la página, windows on log or something like that -->
 		<script src="js/data.js"></script>
 		<!-- Aquí va tus archivos JS -->
     <script src="js/app.js"></script>
