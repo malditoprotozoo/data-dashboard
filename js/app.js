@@ -139,6 +139,35 @@ for (var i = 0; i < totalNumberSpan.length; i++) {
 	totalNumberSpan[i].innerHTML = totalActive20172;
 };
 
+/* Para calcular cuántas estudiantes llegan a la meta requerida de habilidades técnicas
+tenemos que crear un ciclo for que añada las estudiantes activas en un sólo array */
+
+var arrayActiveStudents = (function() {
+	var activeArray = [];
+	for (var i = 0; i < data.SCL["2017-2"].students.length; i++) {
+		if (data.SCL["2017-2"].students[i].active == true) {
+			activeArray.push(data.SCL["2017-2"].students[i]);
+		} 
+	}
+	return activeArray;
+});
+
+/* Teniendo listo el nuevo array con las estudiantes activas, creamos un ciclo for que
+lo recorra y nos diga cuales tienen puntajes técnicos altos en cada sprint */
+
+
+
+var techSkillsAchivement = (function() {
+	var arrayOfHighTechScores = [];
+	for (var i = 0; i < arrayActiveStudents().length; i++) {
+		for (var n = 0; n < arrayActiveStudents()[i].sprints.length; n++) {
+			if (arrayActiveStudents()[i].sprints[n].score.tech >= 1260) {
+				arrayOfHighTechScores.push(arrayActiveStudents()[i]);
+			}
+		}
+	}
+	return arrayOfHighTechScores;	
+});
 
 // var newStudent = {};
 // data.SCL["2017-2"].students.push(newStudent);

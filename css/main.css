@@ -17,6 +17,7 @@ h2, h3, h4 {
 	margin: 0;
 }
 
+
 #container {
 	width: 100%;
 }
@@ -44,7 +45,7 @@ nav {
 	max-width: 100%;
 	min-width: 690px;
 	height: 130px;
-	background-color: #E1E1E1;
+	background-color: #F7B617;
 	padding-left: 100px;
 	padding-right: 100px;
 	padding-top: 30px;
@@ -78,7 +79,7 @@ nav h2 {
 }
 
 #pages a.selected {
-	border-bottom: 4px solid #F7B617;
+	border-bottom: 4px solid black;
 }
 
 .upper {
@@ -90,7 +91,7 @@ nav h2 {
 }
 
 #content {
-	background-color: #F7F7F7;
+	background-color: white;
 	padding-left: 100px;
 	padding-right: 100px;
 	padding-top: 60px;
@@ -106,6 +107,9 @@ nav h2 {
 	margin-right: 30px;
 	vertical-align: top;
 	padding: 20px;
+	box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 
+				0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
+				0px 3px 1px -2px rgba(0, 0, 0, 0.12);
 }
 
 .small-chart h3 {
@@ -151,6 +155,10 @@ nav h2 {
 	background-color: white;
 	margin-top: 90px;
 	padding: 20px;
+	box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 
+				0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
+				0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+
 }
 
 .big-chart h3 {
