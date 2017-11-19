@@ -131,6 +131,107 @@ var calculateNPS = (function(gen) {
 	return Math.round(promotersAveragePercentage(gen) - detractorsAveragePercentage(gen));
 });
 
+/* Para calcular cuántas estudiantes llegan al promedio requerido hay que crear un array con
+todas las estudiantes activas, que es lo que hará la siguiente función  */
+
+var arrActiveStudents = (function(gen) {
+	var arr = [];
+	for (var i = 0; i < gen.students.length; i++) {
+		if (gen.students[i].active === true) {
+			arr.push(gen.students[i]);
+		}
+	}
+	return arr;
+});
+
+/* HSE = 1200 puntos máximo --> el 70% son 840 pts. 
+tech = 1800 puntos máximo --> el 70%  son 1260pts.*/
+
+/* Función que calcula cuántas estudiantes cumplen la meta tech en Laboratoria en 
+determinada generación y determinado sprint */
+
+var achieveTechSkillsPerSprint = (function(gen, sprint) {
+	var total = 0;
+	for (var i = 0; i < arrActiveStudents(gen).length; i++) {
+		if (arrActiveStudents(gen)[i].sprints[sprint-1].score.tech >= 1260) {
+			total++;
+		}
+	}
+	return total;
+});
+
+/* Función que crea un nuevo array con las estudiantes que cumplen la meta tech en Laboratoria
+en determinada generación y determinado sprint */
+
+var arrHighTechSkillsPerSprint = (function(gen, sprint) {
+	var arr = [];
+	for (var i = 0; i < arrActiveStudents(gen).length; i++) {
+		if (arrActiveStudents(gen)[i].sprints[sprint-1].score.tech >= 1260) {
+			arr.push(arrActiveStudents(gen)[i]);
+		}
+	}
+	return arr;
+});
+
+/* Función que calcula el promedio de estudiantes que cumplieron la meta tech durante
+todos los sprints disponibles */
+
+var averageTechStudents = (function(gen, totalSprints) {
+	var total = 0;
+	for (var i = 1; i <= totalSprints; i++) {
+		total += achieveTechSkillsPerSprint(gen, i);
+	}
+	return Math.round(total / totalSprints);
+});
+
+/* Función que calcula cuántas estudiantes cumplen la meta hse en Laboratoria en
+determinada generación y determinado sprint */
+
+var achieveHseSkillsPerSprint = (function(gen, sprint) {
+	var total = 0;
+	for (var i = 0; i < arrActiveStudents(gen).length; i++) {
+		if (arrActiveStudents(gen)[i].sprints[sprint-1].score.hse >= 840) {
+			total++;
+		}
+	}
+	return total;
+});
+
+/* Función que crea un nuevo array con las estudiantes que cumplen la meta hse en Laboratoria
+en determinada generación y determinado sprint */
+
+var arrHighHseSkillsPerSprint = (function(gen, sprint) {
+	var arr = [];
+	for (var i = 0; i < arrActiveStudents(gen).length; i++) {
+		if (arrActiveStudents(gen)[i].sprints[sprint-1].score.hse >= 840) {
+			arr.push(arrActiveStudents(gen)[i]);
+		}
+	}
+	return arr;
+});
+
+/* Función que calcula el promedio de estudiantes que cumplieron la meta hse durante
+todos los sprints disponibles */
+
+var averageHseStudents = (function(gen, totalSprints) {
+	var total = 0;
+	for (var i = 1; i <= totalSprints; i++) {
+		total += achieveHseSkillsPerSprint(gen, i);
+	}
+	return Math.round(total / totalSprints);
+});
+
+/* Función que calcula cuántas estudiantes cumplen con el mínimo requerido, sumando tech y hse */
+var averageTotalStudents = (function(gen, totalSprints) {
+	return Math.round(averageHseStudents(gen, totalSprints) + averageTechStudents(gen, totalSprints) / 2);
+});
+
+/* Función que calcula el porcentaje de estudiantes que cumplen con el mínimo requerido,
+sumando tech y hse */
+
+var percentageAchievementHsePlusTech = (function(gen, totalSprints) {
+	return Math.round((averageTotalStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
+});
 /* Calculando los datos para el Overview, en dónde se presentara la info de la generación
 actual en Santiago de Chile */
 
@@ -141,23 +242,9 @@ document.getElementById("promoters").innerHTML = promotersAveragePercentage(genS
 document.getElementById("passive").innerHTML = passiveAveragePercentage(genSCL20172) + "% ";
 document.getElementById("detractors").innerHTML = detractorsAveragePercentage(genSCL20172) + "% ";
 document.getElementById("nps-counter").innerHTML = calculateNPS(genSCL20172) + "%";
+document.getElementById("target").innerHTML = averageTotalStudents(genSCL20172, 2);
+document.getElementById("total-percentage").innerHTML = percentageAchievementHsePlusTech(genSCL20172, 2) + "%";
 
-
-/* Para calcular cuántas estudiantes llegan al promedio requerido hay  */
-
-
-
-
-
-// var arrayActiveStudents = (function() {
-// 	var activeArray = [];
-// 	for (var i = 0; i < data.SCL["2017-2"].students.length; i++) {
-// 		if (data.SCL["2017-2"].students[i].active == true) {
-// 			activeArray.push(data.SCL["2017-2"].students[i]);
-// 		} 
-// 	}
-// 	return activeArray;
-// });
 
 
 
