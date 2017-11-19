@@ -6,9 +6,7 @@ var menu = document.getElementById("menu");
 var city = document.getElementById("city");
 var down = document.getElementById("down");
 var genSCL20172 = data.SCL["2017-2"];
-var dropoutPercentage = 0;
-var achievementStudents = 0;
-var totalPercentage = 0;
+var sprintsSCL20172 = data.SCL["2017-2"].ratings.length;
 var satisfaction = document.getElementById("student-sat-percentage");
 var teacherRating = document.getElementById("teacher-rat-overall");
 var jediRating = document.getElementById("jedi-rating-overall");
@@ -184,6 +182,13 @@ var averageTechStudents = (function(gen, totalSprints) {
 	return Math.round(total / totalSprints);
 });
 
+/* Función que calcula el porcentaje de alumnas que cumplieron la meta tech durante todos
+los sprints disponibles */
+
+var percentageTechStudents = (function(gen, totalSprints) {
+	return Math.round((averageTechStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
+});
+
 /* Función que calcula cuántas estudiantes cumplen la meta hse en Laboratoria en
 determinada generación y determinado sprint */
 
@@ -221,6 +226,11 @@ var averageHseStudents = (function(gen, totalSprints) {
 	return Math.round(total / totalSprints);
 });
 
+var percentageHseStudents = (function(gen, totalSprints) {
+	return Math.round((averageHseStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
+});
+
+
 /* Función que calcula cuántas estudiantes cumplen con el mínimo requerido, sumando tech y hse */
 var averageTotalStudents = (function(gen, totalSprints) {
 	return Math.round(averageHseStudents(gen, totalSprints) + averageTechStudents(gen, totalSprints) / 2);
@@ -232,6 +242,12 @@ sumando tech y hse */
 var percentageAchievementHsePlusTech = (function(gen, totalSprints) {
 	return Math.round((averageTotalStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
 });
+
+
+
+
+
+
 /* Calculando los datos para el Overview, en dónde se presentara la info de la generación
 actual en Santiago de Chile */
 
@@ -242,13 +258,12 @@ document.getElementById("promoters").innerHTML = promotersAveragePercentage(genS
 document.getElementById("passive").innerHTML = passiveAveragePercentage(genSCL20172) + "% ";
 document.getElementById("detractors").innerHTML = detractorsAveragePercentage(genSCL20172) + "% ";
 document.getElementById("nps-counter").innerHTML = calculateNPS(genSCL20172) + "%";
-document.getElementById("target").innerHTML = averageTotalStudents(genSCL20172, 2);
-document.getElementById("total-percentage").innerHTML = percentageAchievementHsePlusTech(genSCL20172, 2) + "%";
-
-
-
-
-
+document.getElementById("target").innerHTML = averageTotalStudents(genSCL20172, sprintsSCL20172);
+document.getElementById("total-percentage").innerHTML = percentageAchievementHsePlusTech(genSCL20172, sprintsSCL20172) + "%";
+document.getElementById("tech-skills-count").innerHTML = averageTechStudents(genSCL20172, sprintsSCL20172);
+document.getElementById("tech-skills-percentage").innerHTML = percentageTechStudents(genSCL20172, sprintsSCL20172) + "%";
+document.getElementById("life-skills-counter").innerHTML = averageHseStudents(genSCL20172, sprintsSCL20172);
+document.getElementById("life-skills-percentage").innerHTML = percentageHseStudents(genSCL20172, sprintsSCL20172) + "%";
 
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
