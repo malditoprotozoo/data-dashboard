@@ -5,7 +5,7 @@ console.log(data);
 var menu = document.getElementById("menu");
 var city = document.getElementById("city");
 var down = document.getElementById("down");
-var enrolledStudents = 0;
+var genSCL20172 = data.SCL["2017-2"];
 var dropoutPercentage = 0;
 var achievementStudents = 0;
 var totalPercentage = 0;
@@ -13,168 +13,168 @@ var satisfaction = document.getElementById("student-sat-percentage");
 var teacherRating = document.getElementById("teacher-rat-overall");
 var jediRating = document.getElementById("jedi-rating-overall");
 
+/* Función que determina el total de estudiantes inscritas en una generación determinada
+de Laboratoria */
 
-/* Ciclo for que determina cuántas estudiantes están actualmente estudiando
+var totalStudents = (function (gen) {
+	return gen.students.length;
+});
+
+/* Función que determina cuántas estudiantes están activas en determinada generación
 en Laboratoria */
-for (var i = 0; i < data.SCL["2017-2"].students.length; i++) {
-	if (data.SCL["2017-2"].students[i].active == true) {
+
+var enrolledStudentsTotal = (function (gen) {
+	var enrolledStudents = 0;
+	for (var i = 0; i < gen.students.length; i++) {
+	if (gen.students[i].active === true) {
 		enrolledStudents++;
 	}
 }
+return enrolledStudents;
 
-document.getElementById("enrolled").innerHTML = enrolledStudents;
+});
 
-/* Antes de sacar el porcentaje, veamos cuál fue el total de estudiantes inscritas
-en el segundo semestre del 2017 */
-var total20172 = data.SCL["2017-2"].students.length;
+/* Función que determina cuántas estudiantes dejaron de estudiar en determinada generación
+en Laboratoria */
 
-/* Ciclo for que determina cuántas estudiantes dejaron de estudiar en Laboratoria
-durante el segundo semestre de Laboratoria 2017 */
-var drops = 0;
-
-for (var i = 0; i < data.SCL["2017-2"].students.length; i++) {
-	if (data.SCL["2017-2"].students[i].active == false) {
-		drops++;
+var dropoutStudentsTotal = (function (gen) {
+	var dropoutStudents = 0;
+	for (var i = 0; i < gen.students.length; i++) {
+	if (gen.students[i].active === false) {
+		dropoutStudents++;
 	}
 }
+return dropoutStudents;
 
-/* Ahora, con la cifra de alumnas que dejaron Laboratoria y el total, podemos
-sacar el porcentaje */
-dropoutPercentage = Math.round((drops * 100) / total20172);
+});
+
+/* Función que calcula cuál es el porcentaje de estudiantes que abandonaron Laboratoria
+en determinada generación */
 
 /* Math.round() es una función que sirve para redondear números */
-document.getElementById("drop-percentage").innerHTML = dropoutPercentage + "%";
 
-/* Ahora hay que sacar el número de estudiantes que cumplen con las metas de Lab 
-actualmente. Para eso, usamos la fórmula para sacar el número de un porcentaje y sumamos
-el resultado entre todos los sprints disponibles y luego el resultado se divide por la cantidad
-de sprints (o sea, el largo de ratings) y tenemos el número total de estudiantes.
-Además realizamos el cálculo de aquellos que no cumplen y aquellos que superan las expectativas,
-en caso de que sean necesarios */
+var dropoutPercentage = (function (gen) {
+	return Math.round((dropoutStudentsTotal(gen) * 100) / totalStudents(gen));
+});
 
-/* Es necesario crear una nueva variable en dónde se resten las estudiantes que no siguen
-activas en Laboratoria */
-var totalActive20172 = total20172 - drops;
+/* Función que convierte todos los elementos con clase "total" en el número total de
+estudiantes activas en Laboratoria en x generación */
 
-var sumAchievements = (function () {
+var changeTotalStudentsSpan = (function(gen) {
+	var everyTotalSpan = document.getElementsByClassName("total-number");
+	for (var i = 0; i < everyTotalSpan.length; i++) {
+		everyTotalSpan[i].innerHTML = enrolledStudentsTotal(gen);
+	}
+});
+
+/* Función que cuantas estudiantes cumplen con las metas propuestas por Laboratoria */
+
+var studentsThatAchieve = (function (gen) {
 	var total = 0;
-	for (var i = 0; i < data.SCL["2017-2"].ratings.length; i++) {
-		total += ((totalActive20172 * data.SCL["2017-2"].ratings[i].student.cumple) / 100);
+	for (var i = 0; i < gen.ratings.length; i++) {
+		total += ((enrolledStudentsTotal(gen) * gen.ratings[i].student.cumple) / 100);
 	}
-	return total;
+	return Math.round(total / gen.ratings.length);
 });
 
-var achieve = sumAchievements () / data.SCL["2017-2"].ratings.length;
+/* Función que calcula el porcentaje de estudiantes que cumplen con las metas, de entre
+las estudiantes activas */
 
-achievementStudents = Math.round(achieve);
-document.getElementById("target").innerHTML = achievementStudents;
+var percentageOfAchievement = (function(gen) {
+	return Math.round((studentsThatAchieve(gen) * 100) / enrolledStudentsTotal(gen));
+});
 
- /* Ahora, sacamos el porcentaje de estudiantes que cumplen con la meta */
-totalPercentage = Math.round((achieve * 100) / totalActive20172);
-document.getElementById("total-percentage").innerHTML = totalPercentage;
+/* Función que calcula cuántas estudiantes no cumplen con las metas */
 
-var sumDontAchievements = (function () {
+var studentsThatDontAchieve = (function() {
 	var total = 0;
-	for (var i = 0; i < data.SCL["2017-2"].ratings.length; i++) {
-		total += ((totalActive20172 * data.SCL["2017-2"].ratings[i].student["no-cumple"]) / 100);
+	for (var i = 0; i < gen.ratings.length; i++) {
+		total += ((enrolledStudentsTotal(gen) * gen.ratings[i].student["no-cumple"]) / 100);
 	}
-	return total;
+	return Math.round(total / gen.ratings.length);
 });
 
-var dontAchieve = sumDontAchievements() / data.SCL["2017-2"].ratings.length;
+/* Función que calcula el porcentaje promedio de estudiantes que promoverían Laboratoria */
 
-var sumExeedements = (function () {
+var promotersAveragePercentage = (function(gen) {
 	var total = 0;
-	for (var i = 0; i < data.SCL["2017-2"].ratings.length; i++) {
-		total += ((totalActive20172 * data.SCL["2017-2"].ratings[i].student.supera) / 100);
+	for (var i = 0; i < gen.ratings.length; i++) {
+		total += gen.ratings[i].nps.promoters;
 	}
-	return total;
+	return Math.round(total / gen.ratings.length);
 });
 
- var exceede = sumExeedements() / data.SCL["2017-2"].ratings.length;
+/* Función que calcula el porcentaje promedio de estudiantes que ni promovería ni no promovería
+Laboratoria */
 
-
-
-/* Ahora vamos a obtener el número de estudiantes satisfechas con Laboratoria */
-var sumPromoters = (function () {
+var passiveAveragePercentage = (function(gen) {
 	var total = 0;
-	for (var i = 0; i < data.SCL["2017-2"].ratings.length; i++) {
-		total += data.SCL["2017-2"].ratings[i].nps.promoters;
+	for (var i = 0; i < gen.ratings.length; i++) {
+		total += gen.ratings[i].nps.passive;
 	}
-	return total;
+	return Math.round(total / gen.ratings.length);
 });
 
-document.getElementById("promoters").innerHTML = Math.round(sumPromoters() / data.SCL["2017-2"].ratings.length) + "% ";
+/* Función que calcula el porcentaje de estudiantes que no promoverían Laboratoria */ 
 
-/* Ahora el número de neutrales */
-var sumPassive = (function () {
+var detractorsAveragePercentage = (function(gen) {
 	var total = 0;
-	for (var i = 0; i < data.SCL["2017-2"].ratings.length; i++) {
-		total += data.SCL["2017-2"].ratings[i].nps.passive;
+	for (var i = 0; i < gen.ratings.length; i++) {
+		total += gen.ratings[i].nps.detractors;
 	}
-	return total;
+	return Math.round(total / gen.ratings.length);
 });
 
-document.getElementById("passive").innerHTML = Math.round(sumPassive() / data.SCL["2017-2"].ratings.length) + "% ";
+/* Función que calcula el NPS */ 
 
-/* Y ahora el número de detractoras */
-var sumDetractors = (function () {
-	var total = 0;
-	for (var i = 0; i < data.SCL["2017-2"].ratings.length; i++) {
-		total += data.SCL["2017-2"].ratings[i].nps.detractors;
-	}
-	return total;
+var calculateNPS = (function(gen) {
+	return Math.round(promotersAveragePercentage(gen) - detractorsAveragePercentage(gen));
 });
 
-document.getElementById("detractors").innerHTML = Math.round(sumDetractors() / data.SCL["2017-2"].ratings.length) + "% ";
+/* Calculando los datos para el Overview, en dónde se presentara la info de la generación
+actual en Santiago de Chile */
 
-/* Ahora el total del porcentaje de NPS */
-document.getElementById("nps-counter").innerHTML = Math.round((sumPromoters() - sumDetractors()) / data.SCL["2017-2"].ratings.length) + "%";
+document.getElementById("enrolled").innerHTML = enrolledStudentsTotal(genSCL20172);
+document.getElementById("drop-percentage").innerHTML = dropoutPercentage(genSCL20172) + "%";
+changeTotalStudentsSpan(genSCL20172);
+document.getElementById("promoters").innerHTML = promotersAveragePercentage(genSCL20172) + "% ";
+document.getElementById("passive").innerHTML = passiveAveragePercentage(genSCL20172) + "% ";
+document.getElementById("detractors").innerHTML = detractorsAveragePercentage(genSCL20172) + "% ";
+document.getElementById("nps-counter").innerHTML = calculateNPS(genSCL20172) + "%";
 
-/* Vamos a hacer que todos los elementos con la clase "total-number" tengan
-por valor el número total de estudiantes activas en Laboratoria */
 
-var totalNumberSpan = document.getElementsByClassName("total-number"); 
-for (var i = 0; i < totalNumberSpan.length; i++) {
-	totalNumberSpan[i].innerHTML = totalActive20172;
-};
-
-/* Para calcular cuántas estudiantes llegan a la meta requerida de habilidades técnicas
-tenemos que crear un ciclo for que añada las estudiantes activas en un sólo array */
-
-var arrayActiveStudents = (function() {
-	var activeArray = [];
-	for (var i = 0; i < data.SCL["2017-2"].students.length; i++) {
-		if (data.SCL["2017-2"].students[i].active == true) {
-			activeArray.push(data.SCL["2017-2"].students[i]);
-		} 
-	}
-	return activeArray;
-});
-
-/* Teniendo listo el nuevo array con las estudiantes activas, creamos un ciclo for que
-lo recorra y nos diga cuales tienen puntajes técnicos altos en cada sprint */
+/* Para calcular cuántas estudiantes llegan al promedio requerido hay  */
 
 
 
-var techSkillsAchivement = (function() {
-	var arrayOfHighTechScores = [];
-	for (var i = 0; i < arrayActiveStudents().length; i++) {
-		for (var n = 0; n < arrayActiveStudents()[i].sprints.length; n++) {
-			if (arrayActiveStudents()[i].sprints[n].score.tech >= 1260) {
-				arrayOfHighTechScores.push(arrayActiveStudents()[i]);
-			}
-		}
-	}
-	return arrayOfHighTechScores;	
-});
 
-// var newStudent = {};
-// data.SCL["2017-2"].students.push(newStudent);
-// var total20172 = data.SCL["2017-2"].students.length;
+
+// var arrayActiveStudents = (function() {
+// 	var activeArray = [];
+// 	for (var i = 0; i < data.SCL["2017-2"].students.length; i++) {
+// 		if (data.SCL["2017-2"].students[i].active == true) {
+// 			activeArray.push(data.SCL["2017-2"].students[i]);
+// 		} 
+// 	}
+// 	return activeArray;
+// });
 
 
 
+
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var dataRandom = google.visualization.arrayToDataTable([
+  ['Task', 'Hours per Day'],
+  ['Work', 8],
+  ['Friends', 2],
+  ['Eat', 2],
+  ['TV', 3],
+  ['Gym', 2],
+  ['Sleep', 7]
+])};
 
 
 
