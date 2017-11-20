@@ -19,12 +19,58 @@
           <span class="icon-navicon"></span>
         </div>
       </header>
-      <nav>
+      <nav id="navbar">
         <!-- Acá se seleccionará la sede y generación -->
         <div id="city">
-          <h2 class="upper inline hq">Santiago de Chile 2017 - II</h2>
+          <h2 class="upper inline hq" id="choose">Choose a Location</h2>
           <span id="down" class="icon-caret-down"></span>
         </div>
+        <div id="dropdown-city-menu" class="invisible">
+            <table>
+              <tr>
+                <th class="upper">Arequipa</th>
+              </tr>
+              <tr>
+                <td>2016 - II</td>
+              </tr>
+              <tr>
+                <td>2017 - I</td>
+              </tr>
+              <tr>
+                <th class="upper">Ciudad de México</th>
+              </tr>
+              <tr>
+                <td>2017 - I</td>
+              </tr>
+              <tr>
+                <td>2017 - II</td>
+              </tr>
+              <tr>
+                <th class="upper">Lima</th>
+              </tr>
+              <tr>
+                <td>2016 - II</td>
+              </tr>
+              <tr>
+                <td>2017 - I</td>
+              </tr>
+              <tr>
+                <td>2017 - II</td>
+              </tr>
+              <tr>
+                <th class="upper">Santiago de Chile</th>
+              </tr>
+              <tr>
+                <td id="scl-20162">2016 - II</td>
+              </tr>
+              <tr>
+                <td id="scl-20171">2017 - I</td>
+              </tr>
+              <tr>
+                <td id="scl-20172">2017 - II</td>
+              </tr>
+            </table>
+          </div>
         <!-- Acá se accederá a las diferentes páginas con información -->
         <div id="pages">
           <h3 class="upper inline"><a href="index.html" class="selected">Overview</a></h3>
@@ -45,7 +91,7 @@
             <span id="drop-percentage" class="counter">0</span>
             <span class="upper small-size">% Dropout</span>
           </div>
-          <div id="piechart"></div>
+          <div id="chart-enrollment"></div>
         </div>
         <!-- Segunda cada pequeña -->
         <div id="achievement" class="small-chart">
@@ -58,6 +104,7 @@
             <span id="total-percentage" class="counter">0</span>
             <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
           </div>
+          <div id="chart-achievement"></div>
         </div>
         <!-- Tercera caja pequeña -->
         <div id="nps" class="small-chart">

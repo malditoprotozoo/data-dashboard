@@ -1,26 +1,64 @@
 // Puedes hacer uso de la base de datos a través de la variable `data`
 console.log(data);
 
+// Load the Visualization API and the corechart package.
+// google.charts.load('current', {'packages':['corechart']});
+
+// Set a callback to run when the Google Visualization API is loaded.
+// google.charts.setOnLoadCallback(drawChart);
+
 // Creando las variables necesarias
 var menu = document.getElementById("menu");
 var city = document.getElementById("city");
-var down = document.getElementById("down");
+var dropdownCity = document.getElementById("dropdown-city-menu");
+var content = document.getElementById("content");
+var navbar = document.getElementById("navbar");
+/* Definiendo las variables del segundo semestre del 2016 en Santiago */
+var scl20162 = document.getElementById("scl-20162");
+var genSCL20162 = data.SCL["2016-2"];
+var sprintsSCL20162 = data.SCL["2016-2"].ratings.length;
+/* Definiendo las variables del primer semestre del 2017 en Santiago */
+var scl20171 = document.getElementById("scl-20171");
+var genSCL20171 = data.SCL["2017-1"];
+var sprintsSCL20171 = data.SCL["2017-1"].ratings.length;
+/* Definiendo las variables del segundo semestre del 2017 en Santiago */
+var scl20172 = document.getElementById("scl-20172");
 var genSCL20172 = data.SCL["2017-2"];
 var sprintsSCL20172 = data.SCL["2017-2"].ratings.length;
+
 var satisfaction = document.getElementById("student-sat-percentage");
 var teacherRating = document.getElementById("teacher-rat-overall");
 var jediRating = document.getElementById("jedi-rating-overall");
 
+/* Agrega evento al div city. Si se hace click en la ciudad, se abrirá un menú */
+city.addEventListener("click", function(event) {
+	if (dropdownCity.classList.contains("invisible")) {
+		dropdownCity.classList.remove("invisible");
+		dropdownCity.classList.add("visible");
+	} else {
+		dropdownCity.classList.add("invisible");
+		dropdownCity.classList.remove("visible");
+	}
+	
+});
+
+/* Si se hace click fuera del menú, en la navbar o en el contenido del sitio
+el menú anterior se cerrará */
+window.onclick = function(event) {
+	if (event.target == content || event.target == navbar && dropdownCity.classList.contains("visible")) {
+		dropdownCity.classList.remove("visible");
+		dropdownCity.classList.add("invisible");
+	}
+};
+
 /* Función que determina el total de estudiantes inscritas en una generación determinada
 de Laboratoria */
-
 var totalStudents = (function (gen) {
 	return gen.students.length;
 });
 
 /* Función que determina cuántas estudiantes están activas en determinada generación
 en Laboratoria */
-
 var enrolledStudentsTotal = (function (gen) {
 	var enrolledStudents = 0;
 	for (var i = 0; i < gen.students.length; i++) {
@@ -34,7 +72,6 @@ return enrolledStudents;
 
 /* Función que determina cuántas estudiantes dejaron de estudiar en determinada generación
 en Laboratoria */
-
 var dropoutStudentsTotal = (function (gen) {
 	var dropoutStudents = 0;
 	for (var i = 0; i < gen.students.length; i++) {
@@ -50,14 +87,12 @@ return dropoutStudents;
 en determinada generación */
 
 /* Math.round() es una función que sirve para redondear números */
-
 var dropoutPercentage = (function (gen) {
 	return Math.round((dropoutStudentsTotal(gen) * 100) / totalStudents(gen));
 });
 
 /* Función que convierte todos los elementos con clase "total" en el número total de
 estudiantes activas en Laboratoria en x generación */
-
 var changeTotalStudentsSpan = (function(gen) {
 	var everyTotalSpan = document.getElementsByClassName("total-number");
 	for (var i = 0; i < everyTotalSpan.length; i++) {
@@ -66,7 +101,6 @@ var changeTotalStudentsSpan = (function(gen) {
 });
 
 /* Función que cuantas estudiantes cumplen con las metas propuestas por Laboratoria */
-
 var studentsThatAchieve = (function (gen) {
 	var total = 0;
 	for (var i = 0; i < gen.ratings.length; i++) {
@@ -77,13 +111,11 @@ var studentsThatAchieve = (function (gen) {
 
 /* Función que calcula el porcentaje de estudiantes que cumplen con las metas, de entre
 las estudiantes activas */
-
 var percentageOfAchievement = (function(gen) {
 	return Math.round((studentsThatAchieve(gen) * 100) / enrolledStudentsTotal(gen));
 });
 
 /* Función que calcula cuántas estudiantes no cumplen con las metas */
-
 var studentsThatDontAchieve = (function() {
 	var total = 0;
 	for (var i = 0; i < gen.ratings.length; i++) {
@@ -93,7 +125,6 @@ var studentsThatDontAchieve = (function() {
 });
 
 /* Función que calcula el porcentaje promedio de estudiantes que promoverían Laboratoria */
-
 var promotersAveragePercentage = (function(gen) {
 	var total = 0;
 	for (var i = 0; i < gen.ratings.length; i++) {
@@ -104,7 +135,6 @@ var promotersAveragePercentage = (function(gen) {
 
 /* Función que calcula el porcentaje promedio de estudiantes que ni promovería ni no promovería
 Laboratoria */
-
 var passiveAveragePercentage = (function(gen) {
 	var total = 0;
 	for (var i = 0; i < gen.ratings.length; i++) {
@@ -114,7 +144,6 @@ var passiveAveragePercentage = (function(gen) {
 });
 
 /* Función que calcula el porcentaje de estudiantes que no promoverían Laboratoria */ 
-
 var detractorsAveragePercentage = (function(gen) {
 	var total = 0;
 	for (var i = 0; i < gen.ratings.length; i++) {
@@ -124,14 +153,12 @@ var detractorsAveragePercentage = (function(gen) {
 });
 
 /* Función que calcula el NPS */ 
-
 var calculateNPS = (function(gen) {
 	return Math.round(promotersAveragePercentage(gen) - detractorsAveragePercentage(gen));
 });
 
 /* Para calcular cuántas estudiantes llegan al promedio requerido hay que crear un array con
 todas las estudiantes activas, que es lo que hará la siguiente función  */
-
 var arrActiveStudents = (function(gen) {
 	var arr = [];
 	for (var i = 0; i < gen.students.length; i++) {
@@ -147,7 +174,6 @@ tech = 1800 puntos máximo --> el 70%  son 1260pts.*/
 
 /* Función que calcula cuántas estudiantes cumplen la meta tech en Laboratoria en 
 determinada generación y determinado sprint */
-
 var achieveTechSkillsPerSprint = (function(gen, sprint) {
 	var total = 0;
 	for (var i = 0; i < arrActiveStudents(gen).length; i++) {
@@ -160,7 +186,6 @@ var achieveTechSkillsPerSprint = (function(gen, sprint) {
 
 /* Función que crea un nuevo array con las estudiantes que cumplen la meta tech en Laboratoria
 en determinada generación y determinado sprint */
-
 var arrHighTechSkillsPerSprint = (function(gen, sprint) {
 	var arr = [];
 	for (var i = 0; i < arrActiveStudents(gen).length; i++) {
@@ -173,7 +198,6 @@ var arrHighTechSkillsPerSprint = (function(gen, sprint) {
 
 /* Función que calcula el promedio de estudiantes que cumplieron la meta tech durante
 todos los sprints disponibles */
-
 var averageTechStudents = (function(gen, totalSprints) {
 	var total = 0;
 	for (var i = 1; i <= totalSprints; i++) {
@@ -184,14 +208,12 @@ var averageTechStudents = (function(gen, totalSprints) {
 
 /* Función que calcula el porcentaje de alumnas que cumplieron la meta tech durante todos
 los sprints disponibles */
-
 var percentageTechStudents = (function(gen, totalSprints) {
 	return Math.round((averageTechStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
 });
 
 /* Función que calcula cuántas estudiantes cumplen la meta hse en Laboratoria en
 determinada generación y determinado sprint */
-
 var achieveHseSkillsPerSprint = (function(gen, sprint) {
 	var total = 0;
 	for (var i = 0; i < arrActiveStudents(gen).length; i++) {
@@ -204,7 +226,6 @@ var achieveHseSkillsPerSprint = (function(gen, sprint) {
 
 /* Función que crea un nuevo array con las estudiantes que cumplen la meta hse en Laboratoria
 en determinada generación y determinado sprint */
-
 var arrHighHseSkillsPerSprint = (function(gen, sprint) {
 	var arr = [];
 	for (var i = 0; i < arrActiveStudents(gen).length; i++) {
@@ -217,7 +238,6 @@ var arrHighHseSkillsPerSprint = (function(gen, sprint) {
 
 /* Función que calcula el promedio de estudiantes que cumplieron la meta hse durante
 todos los sprints disponibles */
-
 var averageHseStudents = (function(gen, totalSprints) {
 	var total = 0;
 	for (var i = 1; i <= totalSprints; i++) {
@@ -226,6 +246,8 @@ var averageHseStudents = (function(gen, totalSprints) {
 	return Math.round(total / totalSprints);
 });
 
+/* Función que calcula el porcentaje promedio de estudiantes que cumplieron la meta hse
+durante todos los sprints disponibles */
 var percentageHseStudents = (function(gen, totalSprints) {
 	return Math.round((averageHseStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
 });
@@ -238,47 +260,100 @@ var averageTotalStudents = (function(gen, totalSprints) {
 
 /* Función que calcula el porcentaje de estudiantes que cumplen con el mínimo requerido,
 sumando tech y hse */
-
 var percentageAchievementHsePlusTech = (function(gen, totalSprints) {
 	return Math.round((averageTotalStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
 });
 
+/* Función que calcula el porcentaje promedio de satisfacción con Laboratoria */
+var averageSatisfactionPercencentage = (function(gen) {
+	var total = 0;
+	for (var i = 0; i < gen.ratings.length; i++) {
+		total += gen.ratings[i].student.cumple;
+		total += gen.ratings[i].student.supera;
+	}
+	return Math.round(total / gen.ratings.length);
+});
+
+/* Función que calcula el puntaje promedio de profesores */
+var averageTeacherRating = (function(gen) {
+	var total = 0;
+	for (var i = 0; i < gen.ratings.length; i++) {
+		total += gen.ratings[i].teacher;
+	}
+	return Math.round(total / gen.ratings.length);
+});
+
+/* Función que calcula el puntaje promedio de jedi masters */
+var averageJediRating = (function(gen) {
+	var total = 0;
+	for (var i = 0; i < gen.ratings.length; i++) {
+		total += gen.ratings[i].jedi;
+	}
+	return Math.round(total / gen.ratings.length);
+});
+
+/* Función que creará los datos necesarios por sede */
+
+var addEvent = (function(id, gen, totalSprints) {
+	id.addEventListener("click", function() {
+		document.getElementById("enrolled").innerHTML = enrolledStudentsTotal(gen);
+		document.getElementById("drop-percentage").innerHTML = dropoutPercentage(gen) + "%";
+		changeTotalStudentsSpan(gen);
+		document.getElementById("promoters").innerHTML = promotersAveragePercentage(gen) + "% ";
+		document.getElementById("passive").innerHTML = passiveAveragePercentage(gen) + "% ";
+		document.getElementById("detractors").innerHTML = detractorsAveragePercentage(gen) + "% ";
+		document.getElementById("nps-counter").innerHTML = calculateNPS(gen) + "%";
+		document.getElementById("target").innerHTML = averageTotalStudents(gen, totalSprints);
+		document.getElementById("total-percentage").innerHTML = percentageAchievementHsePlusTech(gen, totalSprints) + "%";
+		document.getElementById("tech-skills-count").innerHTML = averageTechStudents(gen, totalSprints);
+		document.getElementById("tech-skills-percentage").innerHTML = percentageTechStudents(gen, totalSprints) + "%";
+		document.getElementById("life-skills-counter").innerHTML = averageHseStudents(gen, totalSprints);
+		document.getElementById("life-skills-percentage").innerHTML = percentageHseStudents(gen, totalSprints) + "%";
+		document.getElementById("student-sat-percentage").innerHTML = averageSatisfactionPercencentage(gen) + "%";
+		document.getElementById("teacher-rat-overall").innerHTML = averageTeacherRating(gen);
+		document.getElementById("jedi-rating-overall").innerHTML = averageJediRating(gen);
+		dropdownCity.classList.remove("visible");
+		dropdownCity.classList.add("invisible");
+	})
+});
 
 
+/* Agregando los datos que se mostrarán al hacer click en cada una de las sedes,
+en cada semestre */
+addEvent(scl20162, genSCL20162, sprintsSCL20162);
+addEvent(scl20171, genSCL20171, sprintsSCL20171);
+addEvent(scl20172, genSCL20172, sprintsSCL20172);
 
 
+/* Creando el gráfico para Enrollment */
+// function drawChart() {
+// 	var data = new google.visualization.DataTable();
+// 	data.addColumn("number", "sprint");
+// 	data.addColumn("number", "students");
+// 	data.addRows([
+// 		[1, totalStudents(genSCL20172)],
+// 		[2, enrolledStudentsTotal(genSCL20172)]
+// 	]);
 
-/* Calculando los datos para el Overview, en dónde se presentara la info de la generación
-actual en Santiago de Chile */
+// 	var options = {"width": 300, "height": 200};
+// 	var chart = new google.visualization.BarChart(document.getElementById("chart-enrollment"));
+// 	chart.draw(data, options);
+// };
 
-document.getElementById("enrolled").innerHTML = enrolledStudentsTotal(genSCL20172);
-document.getElementById("drop-percentage").innerHTML = dropoutPercentage(genSCL20172) + "%";
-changeTotalStudentsSpan(genSCL20172);
-document.getElementById("promoters").innerHTML = promotersAveragePercentage(genSCL20172) + "% ";
-document.getElementById("passive").innerHTML = passiveAveragePercentage(genSCL20172) + "% ";
-document.getElementById("detractors").innerHTML = detractorsAveragePercentage(genSCL20172) + "% ";
-document.getElementById("nps-counter").innerHTML = calculateNPS(genSCL20172) + "%";
-document.getElementById("target").innerHTML = averageTotalStudents(genSCL20172, sprintsSCL20172);
-document.getElementById("total-percentage").innerHTML = percentageAchievementHsePlusTech(genSCL20172, sprintsSCL20172) + "%";
-document.getElementById("tech-skills-count").innerHTML = averageTechStudents(genSCL20172, sprintsSCL20172);
-document.getElementById("tech-skills-percentage").innerHTML = percentageTechStudents(genSCL20172, sprintsSCL20172) + "%";
-document.getElementById("life-skills-counter").innerHTML = averageHseStudents(genSCL20172, sprintsSCL20172);
-document.getElementById("life-skills-percentage").innerHTML = percentageHseStudents(genSCL20172, sprintsSCL20172) + "%";
+/* Creando el gráfico para Achievement */
+// function drawChart() {
+// 	var data = new google.visualization.DataTable();
+// 	data.addColumn("number", "sprint");
+// 	data.addColumn("number", "students");
+// 	data.addRows([
+// 		[1, achieveHseSkillsPerSprint(genSCL20172, 1)],
+// 		[2, achieveHseSkillsPerSprint(genSCL20172, 2)]
+// 	]);
 
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-  var dataRandom = google.visualization.arrayToDataTable([
-  ['Task', 'Hours per Day'],
-  ['Work', 8],
-  ['Friends', 2],
-  ['Eat', 2],
-  ['TV', 3],
-  ['Gym', 2],
-  ['Sleep', 7]
-])};
-
-
+// 	var options = {"width": 300, "height": 200};
+// 	var chart = new google.visualization.BarChart(document.getElementById("chart-achievement"));
+// 	chart.draw(data, options);
+// };
 
 
 // google.charts.load('current', {'packages':['corechart']});

@@ -19,18 +19,68 @@
           <span class="icon-navicon"></span>
         </div>
       </header>
-      <nav>
+      <nav id="navbar">
+        <!-- Acá se seleccionará la sede y generación -->
         <div id="city">
-          <h2 class="upper inline hq">Santiago de Chile 2017 - II</h2>
+          <h2 class="upper inline hq" id="choose">Choose a Location</h2>
           <span id="down" class="icon-caret-down"></span>
         </div>
+        <div id="dropdown-city-menu" class="invisible">
+            <table>
+              <tr>
+                <th class="upper">Arequipa</th>
+              </tr>
+              <tr>
+                <td>2016 - II</td>
+              </tr>
+              <tr>
+                <td>2017 - I</td>
+              </tr>
+              <tr>
+                <th class="upper">Ciudad de México</th>
+              </tr>
+              <tr>
+                <td>2017 - I</td>
+              </tr>
+              <tr>
+                <td>2017 - II</td>
+              </tr>
+              <tr>
+                <th class="upper">Lima</th>
+              </tr>
+              <tr>
+                <td>2016 - II</td>
+              </tr>
+              <tr>
+                <td>2017 - I</td>
+              </tr>
+              <tr>
+                <td>2017 - II</td>
+              </tr>
+              <tr>
+                <th class="upper">Santiago de Chile</th>
+              </tr>
+              <tr>
+                <td>2016 - II</td>
+              </tr>
+              <tr>
+                <td>2017 - I</td>
+              </tr>
+              <tr>
+                <td id="scl-20172">2017 - II</td>
+              </tr>
+            </table>
+          </div>
+        <!-- Acá se accederá a las diferentes páginas con información -->
         <div id="pages">
           <h3 class="upper inline"><a href="index.html">Overview</a></h3>
           <h3 class="upper inline"><a href="students.html" class="selected">Students</a></h3>
           <h3 class="upper inline"><a href="teachers.html">Teachers</a></h3>
         </div>
       </nav>
+      <!-- Espacio en donde se mostrará el contenido de cada página -->
       <div id="content">
+        </div>
       </div>
     </div>
     <script src="js/data.js"></script>

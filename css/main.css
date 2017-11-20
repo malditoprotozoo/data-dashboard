@@ -66,6 +66,35 @@ nav h2 {
 	position: relative;
 }
 
+#dropdown-city-menu {
+	position: absolute;
+	width: 350px;
+	background-color: white;
+	text-align: left;
+	padding: 5px;
+	top: 140px;
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+
+#dropdown-city-menu th {
+	border-bottom: 2px solid #F7B617;
+	font-size: 14px;
+}
+
+#dropdown-city-menu td {
+	font-size: 12px;
+}
+
+#dropdown-city-menu th, #dropdown-city-menu td {
+	width: 200px;
+}
+
+#dropdown-city-menu td:hover {
+	background-color: #F7F7F7;
+	cursor: pointer;
+}
+
 #pages h3 {
 	margin-right: 50px;
 	font-size: 18px;
@@ -168,3 +197,18 @@ nav h2 {
 #life-skills {
 	margin-bottom: 90px;
 }
+
+.visible {
+	visibility: visible;
+	opacity: 1;
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+
+.invisible {
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+
