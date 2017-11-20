@@ -26,158 +26,165 @@
           <span id="down" class="icon-caret-down"></span>
         </div>
         <div id="dropdown-city-menu" class="invisible">
-            <table>
-              <tr>
-                <th class="upper">Arequipa</th>
-              </tr>
-              <tr>
-                <td id="aqp-20162">2016 - II</td>
-              </tr>
-              <tr>
-                <td id="aqp-20171">2017 - I</td>
-              </tr>
-              <tr>
-                <th class="upper">Ciudad de México</th>
-              </tr>
-              <tr>
-                <td id="cdmx-20171">2017 - I</td>
-              </tr>
-              <tr>
-                <td id="cdmx-20172">2017 - II</td>
-              </tr>
-              <tr>
-                <th class="upper">Lima</th>
-              </tr>
-              <tr>
-                <td id="lim-20162">2016 - II</td>
-              </tr>
-              <tr>
-                <td id="lim-20171">2017 - I</td>
-              </tr>
-              <tr>
-                <td id="lim-20172">2017 - II</td>
-              </tr>
-              <tr>
-                <th class="upper">Santiago de Chile</th>
-              </tr>
-              <tr>
-                <td id="scl-20162">2016 - II</td>
-              </tr>
-              <tr>
-                <td id="scl-20171">2017 - I</td>
-              </tr>
-              <tr>
-                <td id="scl-20172">2017 - II</td>
-              </tr>
-            </table>
-          </div>
+          <table>
+            <tr>
+              <th class="upper">Arequipa</th>
+            </tr>
+            <tr>
+              <td id="aqp-20162">2016 - II</td>
+            </tr>
+            <tr>
+              <td id="aqp-20171">2017 - I</td>
+            </tr>
+            <tr>
+              <th class="upper">Ciudad de México</th>
+            </tr>
+            <tr>
+              <td id="cdmx-20171">2017 - I</td>
+            </tr>
+            <tr>
+              <td id="cdmx-20172">2017 - II</td>
+            </tr>
+            <tr>
+              <th class="upper">Lima</th>
+            </tr>
+            <tr>
+              <td id="lim-20162">2016 - II</td>
+            </tr>
+            <tr>
+              <td id="lim-20171">2017 - I</td>
+            </tr>
+            <tr>
+              <td id="lim-20172">2017 - II</td>
+            </tr>
+            <tr>
+              <th class="upper">Santiago de Chile</th>
+            </tr>
+            <tr>
+              <td id="scl-20162">2016 - II</td>
+            </tr>
+            <tr>
+              <td id="scl-20171">2017 - I</td>
+            </tr>
+            <tr>
+              <td id="scl-20172">2017 - II</td>
+            </tr>
+          </table>
+        </div>
         <!-- Acá se accederá a las diferentes páginas con información -->
         <div id="pages">
-          <h3 class="upper inline"><a href="index.html" class="selected">Overview</a></h3>
-          <h3 class="upper inline"><a href="students.html">Students</a></h3>
-          <h3 class="upper inline"><a href="teachers.html">Teachers</a></h3>
+          <h3 class="upper inline"><a href="index.html" class="selected" id="overview">Overview</a></h3>
+          <h3 class="upper inline"><a href="students.html" id="students">Students</a></h3>
+          <h3 class="upper inline"><a href="teachers.html" id="teachers">Teachers</a></h3>
         </div>
       </nav>
       <!-- Espacio en donde se mostrará el contenido de cada página -->
       <div id="content">
-        <h2 id="location-name" class="upper"></h2>
-        <!-- Primera caja pequeña -->
-        <div id="enrollment" class="small-chart">
-          <h3 class="upper">Enrollment</h3>
-          <div class="little-boxes">
-            <span id="enrolled" class="counter">0</span>
-            <span class="upper small-size"># Students Currently Enrolled</span>
-          </div>
-          <div class="little-boxes">
-            <span id="drop-percentage" class="counter">0</span>
-            <span class="upper small-size">% Dropout</span>
-          </div>
-          <div id="chart-enrollment"></div>
+        <div id="overview-content">
+          
         </div>
-        <!-- Segunda cada pequeña -->
-        <div id="achievement" class="small-chart">
-          <h3 class="upper">Achievement</h3>
-          <div class="little-boxes">
-            <span id="target" class="counter">0</span>
-            <span class="upper small-size"># Students that meet the target</span>
+        <div id="data">
+          <div id="location-container">
+            <h2 id="location-name" class="upper"></h2>
           </div>
-          <div class="little-boxes">
-            <span id="total-percentage" class="counter">0</span>
-            <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
+          <!-- Primera caja pequeña -->
+          <div id="enrollment" class="small-chart">
+            <h3 class="upper">Enrollment</h3>
+            <div class="little-boxes">
+              <span id="enrolled" class="counter">0</span>
+              <span class="upper small-size"># Students Currently Enrolled</span>
+            </div>
+            <div class="little-boxes">
+              <span id="drop-percentage" class="counter">0</span>
+              <span class="upper small-size">% Dropout</span>
+            </div>
+            <div id="chart-enrollment"></div>
           </div>
-          <div id="chart-achievement"></div>
-        </div>
-        <!-- Tercera caja pequeña -->
-        <div id="nps" class="small-chart">
-          <h3 class="upper">Net Promoter Score</h3>
-          <div class="little-boxes">
-            <span id="nps-counter" class="counter">0</span>
-            <span class="upper small-size">% Cumulative NPS</span>
+          <!-- Segunda cada pequeña -->
+          <div id="achievement" class="small-chart">
+            <h3 class="upper">Achievement</h3>
+            <div class="little-boxes">
+              <span id="target" class="counter">0</span>
+              <span class="upper small-size"># Students that meet the target</span>
+            </div>
+            <div class="little-boxes">
+              <span id="total-percentage" class="counter">0</span>
+              <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
+            </div>
+            <div id="chart-achievement"></div>
           </div>
-          <div class="little-boxes">
-            <h4>
+          <!-- Tercera caja pequeña -->
+          <div id="nps" class="small-chart">
+            <h3 class="upper">Net Promoter Score</h3>
+            <div class="little-boxes">
+              <span id="nps-counter" class="counter">0</span>
+              <span class="upper small-size">% Cumulative NPS</span>
+            </div>
+            <div class="little-boxes">
+              <h4>
               <span id="promoters">0 </span><span>Promoters</span>
-            </h4>
-            <h4>
+              </h4>
+              <h4>
               <span id="passive">0 </span><span>Passive</span>
-            </h4>
-            <h4>
+              </h4>
+              <h4>
               <span id="detractors">0 </span><span>Detractors</span>
-            </h4>
+              </h4>
+            </div>
           </div>
-        </div>
-        <!-- Primera caja grande -->
-        <div id="tech-skills" class="big-chart">
-          <h3 class="upper">Tech Skills</h3>
-          <div class="little-boxes">
-            <span id="tech-skills-count" class="counter">0</span>
-            <span class="upper small-size"># Students that meet the target</span>
+          <!-- Primera caja grande -->
+          <div id="tech-skills" class="big-chart">
+            <h3 class="upper">Tech Skills</h3>
+            <div class="little-boxes">
+              <span id="tech-skills-count" class="counter">0</span>
+              <span class="upper small-size"># Students that meet the target</span>
+            </div>
+            <div class="little-boxes">
+              <span id="tech-skills-percentage" class="counter">0</span>
+              <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
+            </div>
           </div>
-          <div class="little-boxes">
-            <span id="tech-skills-percentage" class="counter">0</span>
-            <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
+          <!-- Segunda caja grande -->
+          <div id="life-skills" class="big-chart">
+            <h3 class="upper">Life Skills</h3>
+            <div class="little-boxes">
+              <span id="life-skills-counter" class="counter">0</span>
+              <span class="upper small-size"># Overall Class Average</span>
+            </div>
+            <div class="little-boxes">
+              <span id="life-skills-percentage" class="counter">0</span>
+              <span class="upper small-size"># Of Students that meet the target</span>
+            </div>
           </div>
-        </div>
-        <!-- Segunda caja grande -->
-        <div id="life-skills" class="big-chart">
-          <h3 class="upper">Life Skills</h3>
-          <div class="little-boxes">
-            <span id="life-skills-counter" class="counter">0</span>
-            <span class="upper small-size"># Overall Class Average</span>
+          <!-- Cuarta caja pequeña -->
+          <div id="student-satisfaction" class="small-chart">
+            <h3 class="upper">Student Satisfaction</h3>
+            <div class="little-boxes">
+              <span id="student-sat-percentage" class="counter">0</span>
+              <span class="upper small-size">% Meeting or exceeding expectations (cumulative)</span>
+            </div>
           </div>
-          <div class="little-boxes">
-            <span id="life-skills-percentage" class="counter">0</span>
-            <span class="upper small-size"># Of Students that meet the target</span>
+          <!-- Quinta caja pequeña -->
+          <div id="teacher-rating" class="small-chart">
+            <h3 class="upper">Teacher Rating</h3>
+            <div class="little-boxes">
+              <span id="teacher-rat-overall" class="counter">0</span>
+              <span class="upper small-size">Overall teacher rating (cumulative)</span>
+            </div>
           </div>
-        </div>
-        <!-- Cuarta caja pequeña -->
-        <div id="student-satisfaction" class="small-chart">
-          <h3 class="upper">Student Satisfaction</h3>
-          <div class="little-boxes">
-            <span id="student-sat-percentage" class="counter">0</span>
-            <span class="upper small-size">% Meeting or exceeding expectations (cumulative)</span>
-          </div>
-        </div>
-        <!-- Quinta caja pequeña -->
-        <div id="teacher-rating" class="small-chart">
-          <h3 class="upper">Teacher Rating</h3>
-          <div class="little-boxes">
-            <span id="teacher-rat-overall" class="counter">0</span>
-            <span class="upper small-size">Overall teacher rating (cumulative)</span>
-          </div>
-        </div>
-        <!-- Sexta caja pequeña -->
-        <div id="jedi-rating" class="small-chart">
-          <h3 class="upper">Jedi Master Rating</h3>
-          <div class="little-boxes">
-            <span id="jedi-rating-overall" class="counter">0</span>
-            <span class="upper small-size">Overall Jedi Rating (cumulative)</span>
+          <!-- Sexta caja pequeña -->
+          <div id="jedi-rating" class="small-chart">
+            <h3 class="upper">Jedi Master Rating</h3>
+            <div class="little-boxes">
+              <span id="jedi-rating-overall" class="counter">0</span>
+              <span class="upper small-size">Overall Jedi Rating (cumulative)</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-		<script src="js/data.js"></script>
-		<!-- Aquí va tus archivos JS -->
+    <script src="js/data.js"></script>
+    <!-- Aquí va tus archivos JS -->
     <script src="js/app.js"></script>
   </body>
 </html>

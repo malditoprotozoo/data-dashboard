@@ -127,6 +127,15 @@ nav h2 {
 	padding-bottom: 100px;
 }
 
+#data {
+	display: none;
+}
+
+
+#location-container {
+	height: 50px;
+}
+
 .small-chart {
 	background-color: white;
 	width: 345px;
@@ -154,6 +163,15 @@ nav h2 {
 	padding: 3px;
 	text-align: center;
 	line-height: 8px;
+}
+
+#drop-percentage {
+	color: #CE2828;
+}
+
+.indicator {
+	font-size: 20px;
+	margin-left: 5px;
 }
 
 #nps .little-boxes:nth-child(3) {
