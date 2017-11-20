@@ -13,6 +13,42 @@ var city = document.getElementById("city");
 var dropdownCity = document.getElementById("dropdown-city-menu");
 var content = document.getElementById("content");
 var navbar = document.getElementById("navbar");
+
+/* Variables de Arequipa, 2º semestre 2016*/
+var aqp20162 = document.getElementById("aqp-20162");
+var genAQP20162 = data.AQP["2016-2"];
+var sprintsAQP20162 = data.AQP["2016-2"].ratings.length;
+
+/* Variables de Arequipa, 1º semestre 2017*/
+var aqp20171 = document.getElementById("aqp-20171");
+var genAQP20171 = data.AQP["2017-1"];
+var sprintsAQP20171 = data.AQP["2017-1"].ratings.length;
+
+/* Variables de CDMX, 1º semestre 2017*/
+var cdmx20171 = document.getElementById("cdmx-20171");
+var genCDMX20171 = data.CDMX["2017-1"];
+var sprintsCDMX20171 = data.CDMX["2017-1"].ratings.length;
+
+/* Variables de CDMX, 2º semestre 2017*/
+var cdmx20172 = document.getElementById("cdmx-20172");
+var genCDMX20172 = data.CDMX["2017-2"];
+var sprintsCDMX20172 = data.CDMX["2017-2"].ratings.length;
+
+/* Variables de Lima, 2º semestre 2016*/
+var lim20162 = document.getElementById("lim-20162");
+var genLIM20162 = data.LIM["2016-2"];
+var sprintsLIM20162 = data.LIM["2016-2"].ratings.length;
+
+/* Variables de Lima, 1º semestre 2017*/
+var lim20171 = document.getElementById("lim-20171");
+var genLIM20171 = data.LIM["2017-1"];
+var sprintsLIM20171 = data.LIM["2017-1"].ratings.length;
+
+/* Variables de Lima, 2º semestre 2017*/
+var lim20172 = document.getElementById("lim-20172");
+var genLIM20172 = data.LIM["2017-2"];
+var sprintsLIM20172 = data.LIM["2017-2"].ratings.length;
+
 /* Definiendo las variables del segundo semestre del 2016 en Santiago */
 var scl20162 = document.getElementById("scl-20162");
 var genSCL20162 = data.SCL["2016-2"];
@@ -106,7 +142,7 @@ var studentsThatAchieve = (function (gen) {
 	for (var i = 0; i < gen.ratings.length; i++) {
 		total += ((enrolledStudentsTotal(gen) * gen.ratings[i].student.cumple) / 100);
 	}
-	return Math.round(total / gen.ratings.length);
+	return parseInt(total / gen.ratings.length);
 });
 
 /* Función que calcula el porcentaje de estudiantes que cumplen con las metas, de entre
@@ -121,7 +157,7 @@ var studentsThatDontAchieve = (function() {
 	for (var i = 0; i < gen.ratings.length; i++) {
 		total += ((enrolledStudentsTotal(gen) * gen.ratings[i].student["no-cumple"]) / 100);
 	}
-	return Math.round(total / gen.ratings.length);
+	return parseInt(total / gen.ratings.length);
 });
 
 /* Función que calcula el porcentaje promedio de estudiantes que promoverían Laboratoria */
@@ -203,7 +239,7 @@ var averageTechStudents = (function(gen, totalSprints) {
 	for (var i = 1; i <= totalSprints; i++) {
 		total += achieveTechSkillsPerSprint(gen, i);
 	}
-	return Math.round(total / totalSprints);
+	return parseInt(total / totalSprints);
 });
 
 /* Función que calcula el porcentaje de alumnas que cumplieron la meta tech durante todos
@@ -243,7 +279,7 @@ var averageHseStudents = (function(gen, totalSprints) {
 	for (var i = 1; i <= totalSprints; i++) {
 		total += achieveHseSkillsPerSprint(gen, i);
 	}
-	return Math.round(total / totalSprints);
+	return parseInt(total / totalSprints);
 });
 
 /* Función que calcula el porcentaje promedio de estudiantes que cumplieron la meta hse
@@ -255,7 +291,7 @@ var percentageHseStudents = (function(gen, totalSprints) {
 
 /* Función que calcula cuántas estudiantes cumplen con el mínimo requerido, sumando tech y hse */
 var averageTotalStudents = (function(gen, totalSprints) {
-	return Math.round(averageHseStudents(gen, totalSprints) + averageTechStudents(gen, totalSprints) / 2);
+	return parseInt(averageHseStudents(gen, totalSprints) + averageTechStudents(gen, totalSprints) / 2);
 });
 
 /* Función que calcula el porcentaje de estudiantes que cumplen con el mínimo requerido,
@@ -280,7 +316,7 @@ var averageTeacherRating = (function(gen) {
 	for (var i = 0; i < gen.ratings.length; i++) {
 		total += gen.ratings[i].teacher;
 	}
-	return Math.round(total / gen.ratings.length);
+	return Math.round((total / gen.ratings.length) * 100) / 100;
 });
 
 /* Función que calcula el puntaje promedio de jedi masters */
@@ -289,13 +325,40 @@ var averageJediRating = (function(gen) {
 	for (var i = 0; i < gen.ratings.length; i++) {
 		total += gen.ratings[i].jedi;
 	}
-	return Math.round(total / gen.ratings.length);
+	return Math.round((total / gen.ratings.length) * 100) / 100;
+});
+
+/* Función que genera los títulos de cada sede */
+
+var locationName = (function (gen) {
+	if (gen == genAQP20162) {
+		document.getElementById("location-name").innerHTML = "Arequipa, Perú 2016 - II";
+	} else if (gen == genAQP20171) {
+		document.getElementById("location-name").innerHTML = "Arequipa, Perú 2017 - I";
+	} else if (gen == genCDMX20171) {
+		document.getElementById("location-name").innerHTML = "Ciudad de México 2017 - I";
+	} else if (gen == genCDMX20172) {
+		document.getElementById("location-name").innerHTML = "Ciudad de México 2017 - II";
+	} else if (gen == genLIM20162) {
+		document.getElementById("location-name").innerHTML = "Lima, Perú 2016 - II";
+	} else if (gen == genLIM20171) {
+		document.getElementById("location-name").innerHTML = "Lima, Perú 2017 - I";
+	} else if (gen == genLIM20172) {
+		document.getElementById("location-name").innerHTML = "Lima, Perú 2017 - II";
+	} else if (gen == genSCL20162) {
+		document.getElementById("location-name").innerHTML = "Santiago de Chile 2016 - II";
+	} else if (gen == genSCL20171) {
+		document.getElementById("location-name").innerHTML = "Santiago de Chile 2017 - I";
+	} else if (gen == genSCL20172) {
+		document.getElementById("location-name").innerHTML = "Santiago de Chile 2017 - II";
+	}
 });
 
 /* Función que creará los datos necesarios por sede */
 
 var addEvent = (function(id, gen, totalSprints) {
 	id.addEventListener("click", function() {
+		locationName(gen);
 		document.getElementById("enrolled").innerHTML = enrolledStudentsTotal(gen);
 		document.getElementById("drop-percentage").innerHTML = dropoutPercentage(gen) + "%";
 		changeTotalStudentsSpan(gen);
@@ -320,6 +383,13 @@ var addEvent = (function(id, gen, totalSprints) {
 
 /* Agregando los datos que se mostrarán al hacer click en cada una de las sedes,
 en cada semestre */
+addEvent(aqp20162, genAQP20162, sprintsAQP20162);
+addEvent(aqp20171, genAQP20171, sprintsAQP20171);
+addEvent(cdmx20171, genCDMX20171, sprintsCDMX20171);
+addEvent(cdmx20172, genCDMX20172, sprintsCDMX20172);
+addEvent(lim20162, genLIM20162, sprintsLIM20162);
+addEvent(lim20171, genLIM20171, sprintsLIM20171);
+addEvent(lim20172, genLIM20172, sprintsLIM20172);
 addEvent(scl20162, genSCL20162, sprintsSCL20162);
 addEvent(scl20171, genSCL20171, sprintsSCL20171);
 addEvent(scl20172, genSCL20172, sprintsSCL20172);
