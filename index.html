@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="assets/fonts/icomoon/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <!-- Este JS se agrega acá, porque necesitamos que cargue al iniciar la página -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body>
     <div id="container">
@@ -98,7 +96,7 @@
               <span id="drop-percentage" class="counter">0</span>
               <span class="upper small-size">% Dropout</span>
             </div>
-            <div id="chart-enrollment"></div>
+            <div id="chart-enrollment" style="height: 200px; width: 100%;"></div>
           </div>
           <!-- Segunda cada pequeña -->
           <div id="achievement" class="small-chart">
@@ -111,7 +109,7 @@
               <span id="total-percentage" class="counter">0</span>
               <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
             </div>
-            <div id="chart-achievement"></div>
+            <div id="chart-achievement" style="height: 200px; width: 100%;"></div>
           </div>
           <!-- Tercera caja pequeña -->
           <div id="nps" class="small-chart">
@@ -143,6 +141,7 @@
               <span id="tech-skills-percentage" class="counter">0</span>
               <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
             </div>
+            <div id="tech-average-sprint"></div>
           </div>
           <!-- Segunda caja grande -->
           <div id="life-skills" class="big-chart">
@@ -183,6 +182,8 @@
         </div>
       </div>
     </div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="js/charts.js"></script>
     <script src="js/data.js"></script>
     <!-- Aquí va tus archivos JS -->
     <script src="js/app.js"></script>

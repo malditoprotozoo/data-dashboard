@@ -1,12 +1,6 @@
 // Puedes hacer uso de la base de datos a través de la variable `data`
 console.log(data);
 
-// Load the Visualization API and the corechart package.
-// google.charts.load('current', {'packages':['corechart']});
-
-// Set a callback to run when the Google Visualization API is loaded.
-// google.charts.setOnLoadCallback(drawChart);
-
 // Creando las variables necesarias
 var menu = document.getElementById("menu");
 var city = document.getElementById("city");
@@ -70,7 +64,7 @@ var satisfaction = document.getElementById("student-sat-percentage");
 var teacherRating = document.getElementById("teacher-rat-overall");
 var jediRating = document.getElementById("jedi-rating-overall");
 
-/* Agrega evento al div city. Si se hace click en la ciudad, se abrirá un menú */
+/* Agrega evento al div city. Si se hace click en elegir una locación, se abrirá un menú */
 city.addEventListener("click", function(event) {
     if (dropdownCity.classList.contains("invisible")) {
         dropdownCity.classList.remove("invisible");
@@ -98,7 +92,7 @@ var totalStudents = (function(gen) {
 });
 
 /* Función que determina cuántas estudiantes están activas en determinada generación
-en Laboratoria */
+en Laboratoria en la actualidad*/
 var enrolledStudentsTotal = (function(gen) {
     var enrolledStudents = 0;
     for (var i = 0; i < gen.students.length; i++) {
@@ -110,8 +104,20 @@ var enrolledStudentsTotal = (function(gen) {
 
 });
 
+/* Función que determina cuántas estudiantes han estado activas por sprint */
+
+var enrolledStudentsPerSprint = (function(gen, sprint) {
+    var total = 0;
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i].sprints[sprint - 1] !== undefined) {
+            total++;
+        }
+    }
+    return total;
+});
+
 /* Función que determina cuántas estudiantes dejaron de estudiar en determinada generación
-en Laboratoria */
+en Laboratoria, en total NO POR SPRINT */
 var dropoutStudentsTotal = (function(gen) {
     var dropoutStudents = 0;
     for (var i = 0; i < gen.students.length; i++) {
@@ -124,7 +130,7 @@ var dropoutStudentsTotal = (function(gen) {
 });
 
 /* Función que calcula cuál es el porcentaje de estudiantes que abandonaron Laboratoria
-en determinada generación */
+en determinada generación, en total NO POR SPRINT */
 
 /* Math.round() es una función que sirve para redondear números */
 var dropoutPercentage = (function(gen) {
@@ -132,36 +138,12 @@ var dropoutPercentage = (function(gen) {
 });
 
 /* Función que convierte todos los elementos con clase "total" en el número total de
-estudiantes activas en Laboratoria en x generación */
+estudiantes inscritas en Laboratoria en x generación */
 var changeTotalStudentsSpan = (function(gen) {
     var everyTotalSpan = document.getElementsByClassName("total-number");
     for (var i = 0; i < everyTotalSpan.length; i++) {
-        everyTotalSpan[i].innerHTML = enrolledStudentsTotal(gen);
+        everyTotalSpan[i].innerHTML = totalStudents(gen);
     }
-});
-
-/* Función que cuantas estudiantes cumplen con las metas propuestas por Laboratoria */
-var studentsThatAchieve = (function(gen) {
-    var total = 0;
-    for (var i = 0; i < gen.ratings.length; i++) {
-        total += ((enrolledStudentsTotal(gen) * gen.ratings[i].student.cumple) / 100);
-    }
-    return parseInt(total / gen.ratings.length);
-});
-
-/* Función que calcula el porcentaje de estudiantes que cumplen con las metas, de entre
-las estudiantes activas */
-var percentageOfAchievement = (function(gen) {
-    return Math.round((studentsThatAchieve(gen) * 100) / enrolledStudentsTotal(gen));
-});
-
-/* Función que calcula cuántas estudiantes no cumplen con las metas */
-var studentsThatDontAchieve = (function() {
-    var total = 0;
-    for (var i = 0; i < gen.ratings.length; i++) {
-        total += ((enrolledStudentsTotal(gen) * gen.ratings[i].student["no-cumple"]) / 100);
-    }
-    return parseInt(total / gen.ratings.length);
 });
 
 /* Función que calcula el porcentaje promedio de estudiantes que promoverían Laboratoria */
@@ -197,8 +179,7 @@ var calculateNPS = (function(gen) {
     return Math.round(promotersAveragePercentage(gen) - detractorsAveragePercentage(gen));
 });
 
-/* Para calcular cuántas estudiantes llegan al promedio requerido hay que crear un array con
-todas las estudiantes activas, que es lo que hará la siguiente función  */
+/* Función que crea un array con las estudiantes activas  */
 var arrActiveStudents = (function(gen) {
     var arr = [];
     for (var i = 0; i < gen.students.length; i++) {
@@ -213,31 +194,44 @@ var arrActiveStudents = (function(gen) {
 tech = 1800 puntos máximo --> el 70%  son 1260pts.*/
 
 /* Función que calcula cuántas estudiantes cumplen la meta tech en Laboratoria en 
-determinada generación y determinado sprint */
+determinada generación y determinado sprint.
+Esta función irá sumando 1 a la variable total cada vez que una estudiante tenga x sprint no vacío y cumpla el porcentaje
+requerido */
 var achieveTechSkillsPerSprint = (function(gen, sprint) {
     var total = 0;
-    for (var i = 0; i < arrActiveStudents(gen).length; i++) {
-        if (arrActiveStudents(gen)[i].sprints[sprint - 1].score.tech >= 1260) {
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.tech >= 1260) {
             total++;
         }
     }
     return total;
 });
 
+
 /* Función que crea un nuevo array con las estudiantes que cumplen la meta tech en Laboratoria
 en determinada generación y determinado sprint */
 var arrHighTechSkillsPerSprint = (function(gen, sprint) {
     var arr = [];
-    for (var i = 0; i < arrActiveStudents(gen).length; i++) {
-        if (arrActiveStudents(gen)[i].sprints[sprint - 1].score.tech >= 1260) {
-            arr.push(arrActiveStudents(gen)[i]);
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.tech >= 1260) {
+            arr.push(gen.students[i]);
         }
     }
     return arr;
 });
 
+/* Función que crea un array con la cantidad de estudiantes que obtuvieron altos puntajes en tech por sprint */
+var averagesTechPerSprints = (function(gen, totalSprints) {
+	var arr = [];
+	for (var i = 1; i <= totalSprints; i++) {
+		arr.push(achieveTechSkillsPerSprint(gen, i));
+	}
+	return arr;
+});
+
 /* Función que calcula el promedio de estudiantes que cumplieron la meta tech durante
 todos los sprints disponibles */
+
 var averageTechStudents = (function(gen, totalSprints) {
     var total = 0;
     for (var i = 1; i <= totalSprints; i++) {
@@ -249,15 +243,15 @@ var averageTechStudents = (function(gen, totalSprints) {
 /* Función que calcula el porcentaje de alumnas que cumplieron la meta tech durante todos
 los sprints disponibles */
 var percentageTechStudents = (function(gen, totalSprints) {
-    return Math.round((averageTechStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
+    return Math.round((averageTechStudents(gen, totalSprints) * 100) / totalStudents(gen));
 });
 
 /* Función que calcula cuántas estudiantes cumplen la meta hse en Laboratoria en
 determinada generación y determinado sprint */
 var achieveHseSkillsPerSprint = (function(gen, sprint) {
     var total = 0;
-    for (var i = 0; i < arrActiveStudents(gen).length; i++) {
-        if (arrActiveStudents(gen)[i].sprints[sprint - 1].score.hse >= 840) {
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.hse >= 840) {
             total++;
         }
     }
@@ -268,10 +262,20 @@ var achieveHseSkillsPerSprint = (function(gen, sprint) {
 en determinada generación y determinado sprint */
 var arrHighHseSkillsPerSprint = (function(gen, sprint) {
     var arr = [];
-    for (var i = 0; i < arrActiveStudents(gen).length; i++) {
-        if (arrActiveStudents(gen)[i].sprints[sprint - 1].score.hse >= 840) {
-            arr.push(arrActiveStudents(gen)[i]);
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.hse >= 840) {
+            arr.push(gen.students[i]);
         }
+    }
+    return arr;
+});
+
+/* Función que crea un array con la cantidad de estudiantes que obtuvieron altos puntajes en HSE por Sprint */
+
+var averagesHsePerSprints = (function(gen, totalSprints) {
+    var arr = [];
+    for (var i = 1; i <= totalSprints; i++) {
+        arr.push(achieveHseSkillsPerSprint(gen, i));
     }
     return arr;
 });
@@ -289,19 +293,48 @@ var averageHseStudents = (function(gen, totalSprints) {
 /* Función que calcula el porcentaje promedio de estudiantes que cumplieron la meta hse
 durante todos los sprints disponibles */
 var percentageHseStudents = (function(gen, totalSprints) {
-    return Math.round((averageHseStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
+    return Math.round((averageHseStudents(gen, totalSprints) * 100) / totalStudents(gen));
 });
 
 
-/* Función que calcula cuántas estudiantes cumplen con el mínimo requerido, sumando tech y hse */
-var averageTotalStudents = (function(gen, totalSprints) {
-    return parseInt(averageHseStudents(gen, totalSprints) + averageTechStudents(gen, totalSprints) / 2);
+/* Función que calcula cuántas estudiantes cumplen con el mínimo requerido, sumando tech y hse por sprint */
+var averageTotalStudents = (function(gen, sprint) {
+    var total = 0;
+    var activeStudents = 0;
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i]. sprints[sprint - 1] !== undefined) {
+            activeStudents++;
+            if (gen.students[i].sprints[sprint - 1].score.tech >= 1260 && gen.students[i].sprints[sprint - 1].score.hse >= 840) {
+                total++;
+            }
+        }
+    }
+    return Math.round(total*100)/100;
 });
 
 /* Función que calcula el porcentaje de estudiantes que cumplen con el mínimo requerido,
-sumando tech y hse */
-var percentageAchievementHsePlusTech = (function(gen, totalSprints) {
-    return Math.round((averageTotalStudents(gen, totalSprints) * 100) / enrolledStudentsTotal(gen));
+sumando tech y hse por sprint */
+var percentageAchievementHsePlusTechPerSprint = (function(gen, sprint) {
+    var total = 0;
+    var activeStudents = 0;
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i].sprints[sprint - 1] !== undefined) {
+            activeStudents++;
+            if (gen.students[i].sprints[sprint - 1].score.tech >= 1260 && gen.students[i].sprints[sprint - 1].score.hse >= 840) {
+                total++;
+            }
+        }
+    }
+    return Math.round((total * 100) / activeStudents);
+});
+
+/* Función que calcula el porcentaje que cumple con el mínimo requerido en HSE y Tech en todos los sprints */
+var percentageAchievementHsePlusTech = (function (gen, totalSprints) {
+    var total = 0;
+    for (var i = 1; i <= totalSprints; i++) {
+        total += percentageAchievementHsePlusTechPerSprint(gen, i);
+    }
+    return Math.round((total / totalSprints) * 100) / 100;
 });
 
 /* Función que calcula el porcentaje promedio de satisfacción con Laboratoria */
@@ -331,6 +364,7 @@ var averageJediRating = (function(gen) {
     }
     return Math.round((total / gen.ratings.length) * 100) / 100;
 });
+
 
 
 /* Función que genera los títulos de cada sede */
@@ -382,12 +416,14 @@ var addEvent = (function(id, gen, totalSprints) {
         document.getElementById("enrolled").innerHTML = enrolledStudentsTotal(gen);
         document.getElementById("drop-percentage").innerHTML = dropoutPercentage(gen) + "%";
         changeTotalStudentsSpan(gen);
+        chartEnrolled(gen);
         document.getElementById("promoters").innerHTML = promotersAveragePercentage(gen) + "% ";
         document.getElementById("passive").innerHTML = passiveAveragePercentage(gen) + "% ";
         document.getElementById("detractors").innerHTML = detractorsAveragePercentage(gen) + "% ";
         document.getElementById("nps-counter").innerHTML = calculateNPS(gen) + "%";
         percentageColor(calculateNPS(gen), document.getElementById("nps-counter"));
         document.getElementById("target").innerHTML = averageTotalStudents(gen, totalSprints);
+        chartAchievement(gen);
         document.getElementById("total-percentage").innerHTML = percentageAchievementHsePlusTech(gen, totalSprints) + "%";
         percentageColor(percentageAchievementHsePlusTech(gen, totalSprints), document.getElementById("total-percentage"));
         document.getElementById("tech-skills-count").innerHTML = averageTechStudents(gen, totalSprints);
@@ -404,10 +440,13 @@ var addEvent = (function(id, gen, totalSprints) {
         divData.style.display = "block";
         overview.classList.remove("selected");
         overviewContent.style.display = "none";
-        // divData.classList.remove("invisible");
-        // divData.classList.add("visible");
     })
 });
+
+
+
+
+
 
 
 /* Agregando los datos que se mostrarán al hacer click en cada una de las sedes,
@@ -422,6 +461,3 @@ addEvent(lim20172, genLIM20172, sprintsLIM20172);
 addEvent(scl20162, genSCL20162, sprintsSCL20162);
 addEvent(scl20171, genSCL20171, sprintsSCL20171);
 addEvent(scl20172, genSCL20172, sprintsSCL20172);
-
-
-
