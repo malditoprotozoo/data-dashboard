@@ -459,6 +459,17 @@ var averageJediRating = (function(gen) {
     return Math.round((total / gen.ratings.length) * 100) / 100;
 });
 
+var jediRatingPerSprint = (function(gen, sprint) {
+    var total = 0;
+    for (var i = 0; i < gen.ratings.length; i++) {
+        if (gen.ratings[sprint - 1] !== undefined) {
+            total+= gen.ratings[sprint - 1].jedi;
+        }
+    }
+    return Math.round((total / gen.ratings.length) * 100) / 100;
+})
+
+
 
 
 /* Función que genera los títulos de cada sede */
@@ -536,6 +547,7 @@ var addEvent = (function(id, gen, totalSprints) {
         document.getElementById("teacher-rat-overall").innerHTML = averageTeacherRating(gen);
         chartTeacherRating(gen);
         document.getElementById("jedi-rating-overall").innerHTML = averageJediRating(gen);
+        chartJediRating(gen);
         dropdownCity.classList.remove("visible");
         dropdownCity.classList.add("invisible");
         overview.classList.remove("selected");
