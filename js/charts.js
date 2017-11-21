@@ -131,10 +131,10 @@ var pieChartTechSkills = (function(gen, totalSprints) {
                 showInLegend: true,
                 toolTipContent: "{name}: <strong>{y}%</strong>",
                 dataPoints: [{
-                    y: Math.round((averageTechStudents(gen, totalSprints)*100)/ totalStudents(gen)),
+                    y: Math.round((averageTechStudents(gen, totalSprints)*100)/ averageEnrolledStudents(gen, totalSprints)),
                     name: "% Students that meet the target"
                 }, {
-                    y: Math.round((averageFailsTechStudents(gen, totalSprints)*100)/ totalStudents(gen)),
+                    y: Math.round((averageFailsTechStudents(gen, totalSprints)*100)/ averageEnrolledStudents(gen, totalSprints)),
                     name: "% Students that don't meet the target"
                 }, ]
             }]
@@ -187,10 +187,10 @@ var pieChartHseSkills = (function(gen, totalSprints) {
                 showInLegend: true,
                 toolTipContent: "{name}: <strong>{y}%</strong>",
                 dataPoints: [{
-                    y: Math.round((averageHseStudents(gen, totalSprints)*100)/ enrolledStudentsTotal(gen)),
+                    y: Math.round((averageHseStudents(gen, totalSprints)*100)/ averageEnrolledStudents(gen, totalSprints)),
                     name: "% Students that meet the target"
                 }, {
-                    y: Math.round((averageFailsHseStudents(gen, totalSprints)*100)/ enrolledStudentsTotal(gen)),
+                    y: Math.round((averageFailsHseStudents(gen, totalSprints)*100)/ averageEnrolledStudents(gen, totalSprints)),
                     name: "% Students that don't meet the target"
                 }, ]
             }]

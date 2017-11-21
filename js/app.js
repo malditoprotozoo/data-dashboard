@@ -116,6 +116,22 @@ var enrolledStudentsPerSprint = (function(gen, sprint) {
     return total;
 });
 
+// var averageTechStudents = (function(gen, totalSprints) {
+//     var total = 0;
+//     for (var i = 1; i <= totalSprints; i++) {
+//         total += achieveTechSkillsPerSprint(gen, i);
+//     }
+//     return parseInt(total / totalSprints);
+// });
+
+var averageEnrolledStudents = (function(gen, totalSprints) {
+    var total = 0;
+    for (var i = 1; i <= totalSprints; i++) {
+        total += enrolledStudentsPerSprint(gen, i);
+    }
+    return total/totalSprints;
+});
+
 
 /* Función que determina cuántas estudiantes dejaron de estudiar en determinada generación
 en Laboratoria, en total NO POR SPRINT */
