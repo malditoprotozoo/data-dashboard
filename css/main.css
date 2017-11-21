@@ -75,6 +75,7 @@ nav h2 {
 	top: 140px;
 	transition: all 0.5s ease-in-out;
 	-webkit-transition: all 0.5s ease-in-out;
+	z-index: 100000;
 }
 
 #dropdown-city-menu th {
@@ -231,4 +232,15 @@ nav h2 {
 	opacity: 0;
 	transition: all 0.5s ease-in-out;
 	-webkit-transition: all 0.5s ease-in-out;
+}
+
+.big-chart-container {
+	margin-top: 50px;
+	width: 590px;
+}
+
+.pie-chart-container {
+	float: right;
+	margin-right: 320px;
+	margin-top: 50px;
 }

@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="assets/fonts/icomoon/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
   </head>
   <body>
     <div id="container">
@@ -96,7 +98,7 @@
               <span id="drop-percentage" class="counter">0</span>
               <span class="upper small-size">% Dropout</span>
             </div>
-            <div id="chart-enrollment" style="height: 200px; width: 100%;"></div>
+            <div id="chart-enrollment"></div>
           </div>
           <!-- Segunda cada pequeña -->
           <div id="achievement" class="small-chart">
@@ -109,7 +111,7 @@
               <span id="total-percentage" class="counter">0</span>
               <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
             </div>
-            <div id="chart-achievement" style="height: 200px; width: 100%;"></div>
+            <div id="chart-achievement"></div>
           </div>
           <!-- Tercera caja pequeña -->
           <div id="nps" class="small-chart">
@@ -129,6 +131,7 @@
               <span id="detractors">0 </span><span>Detractors</span>
               </h4>
             </div>
+            <div id="chart-nps"></div>
           </div>
           <!-- Primera caja grande -->
           <div id="tech-skills" class="big-chart">
@@ -142,6 +145,12 @@
               <span class="upper small-size">% of total (<span class="total-number">0</span>)</span>
             </div>
             <div id="tech-average-sprint"></div>
+            <div class="big-chart-container">
+              <div id="chart-tech-skills"></div>
+            </div>
+            <div class="pie-chart-container">
+              <div id="pie-chart-tech"></div>
+            </div>
           </div>
           <!-- Segunda caja grande -->
           <div id="life-skills" class="big-chart">
@@ -153,6 +162,12 @@
             <div class="little-boxes">
               <span id="life-skills-percentage" class="counter">0</span>
               <span class="upper small-size"># Of Students that meet the target</span>
+            </div>
+            <div class="big-chart-container">
+              <div id="chart-hse-skills"></div>
+            </div>
+            <div class="pie-chart-container">
+              <div id="pie-chart-hse"></div>
             </div>
           </div>
           <!-- Cuarta caja pequeña -->
