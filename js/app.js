@@ -410,6 +410,27 @@ var averageSatisfactionPercencentage = (function(gen) {
     return Math.round(total / gen.ratings.length);
 });
 
+var satisfactionPerSprint = (function(gen, sprint) {
+    var total = 0;
+    for (var i = 0; i < gen.ratings.length; i++) {
+        if (gen.ratings[sprint - 1] !== undefined) {
+            total+= gen.ratings[sprint - 1].student.cumple;
+            total += gen.ratings[sprint - 1].student.supera;
+        }
+    }
+    return (total/ gen.ratings.length);
+})
+
+// var dontAchieveHseSkillsPerSprint = (function(gen, sprint) {
+//     var total = 0;
+//     for (var i = 0; i < totalStudents(gen); i++) {
+//         if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.hse <= 840) {
+//             total++;
+//         }
+//     }
+//     return total;
+// });
+
 /* Función que calcula el puntaje promedio de profesores */
 var averageTeacherRating = (function(gen) {
     var total = 0;
@@ -501,6 +522,7 @@ var addEvent = (function(id, gen, totalSprints) {
         chartHseSkills(gen);
         pieChartHseSkills(gen, totalSprints);
         document.getElementById("student-sat-percentage").innerHTML = averageSatisfactionPercencentage(gen) + "%";
+        chartSatisfaction(gen);
         document.getElementById("teacher-rat-overall").innerHTML = averageTeacherRating(gen);
         document.getElementById("jedi-rating-overall").innerHTML = averageJediRating(gen);
         dropdownCity.classList.remove("visible");

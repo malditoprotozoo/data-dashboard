@@ -64,7 +64,7 @@ var chartNps = (function(gen) {
         animationEnabled: true,
         theme: "light2",
         axisY: {
-            includeZero: false
+            includeZero: true
         },
         data: [{
             type: "line",
@@ -197,6 +197,35 @@ var pieChartHseSkills = (function(gen, totalSprints) {
         });
         chart.render();
     });
+
+var chartSatisfaction = (function(gen) {
+    var chart = new CanvasJS.Chart("chart-satisfaction", {
+        height: 200,
+        width: 300,
+        animationEnabled: true,
+        theme: "light2",
+        axisY: {
+            includeZero: true
+        },
+        data: [{
+            type: "line",
+            dataPoints: [{
+                y: satisfactionPerSprint(gen, 1),
+                label: "Sprint 1"
+            }, {
+                y: satisfactionPerSprint(gen, 2),
+                label: "Sprint 2"
+            }, {
+                y: satisfactionPerSprint(gen, 3),
+                label: "Sprint 3"
+            }, {
+                y: satisfactionPerSprint(gen, 4),
+                label: "Sprint 4"
+            }]
+        }]
+    });
+    chart.render();
+});
 
 function explodePie(e) {
     if (typeof(e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
