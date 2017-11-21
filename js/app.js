@@ -105,7 +105,6 @@ var enrolledStudentsTotal = (function(gen) {
 });
 
 /* Función que determina cuántas estudiantes han estado activas por sprint */
-
 var enrolledStudentsPerSprint = (function(gen, sprint) {
     var total = 0;
     for (var i = 0; i < totalStudents(gen); i++) {
@@ -116,14 +115,7 @@ var enrolledStudentsPerSprint = (function(gen, sprint) {
     return total;
 });
 
-// var averageTechStudents = (function(gen, totalSprints) {
-//     var total = 0;
-//     for (var i = 1; i <= totalSprints; i++) {
-//         total += achieveTechSkillsPerSprint(gen, i);
-//     }
-//     return parseInt(total / totalSprints);
-// });
-
+/* Función que establece el promedio de estudiantes activas */
 var averageEnrolledStudents = (function(gen, totalSprints) {
     var total = 0;
     for (var i = 1; i <= totalSprints; i++) {
@@ -234,6 +226,7 @@ var achieveTechSkillsPerSprint = (function(gen, sprint) {
     return total;
 });
 
+/* Función que calcula cuántas estudiantes no cumplen con la meta tech en determinada generación y determinado sprint */
 var dontAchieveTechSkillsPerSprint = (function(gen, sprint) {
     var total = 0;
     for (var i = 0; i < totalStudents(gen); i++) {
@@ -326,7 +319,6 @@ var arrHighHseSkillsPerSprint = (function(gen, sprint) {
 });
 
 /* Función que crea un array con la cantidad de estudiantes que obtuvieron altos puntajes en HSE por Sprint */
-
 var averagesHsePerSprints = (function(gen, totalSprints) {
     var arr = [];
     for (var i = 1; i <= totalSprints; i++) {
@@ -335,6 +327,7 @@ var averagesHsePerSprints = (function(gen, totalSprints) {
     return arr;
 });
 
+/* Función que cuenta cuantas estudiantes en promedio no cumplieron las metas de HSE */
 var averageFailsHseStudents = (function(gen, totalSprints) {
     var total = 0;
     for (var i = 1; i <= totalSprints; i++) {
@@ -410,6 +403,7 @@ var averageSatisfactionPercencentage = (function(gen) {
     return Math.round(total / gen.ratings.length);
 });
 
+/* Función que calcula la satisfacción por sprint */
 var satisfactionPerSprint = (function(gen, sprint) {
     var total = 0;
     for (var i = 0; i < gen.ratings.length; i++) {
@@ -419,17 +413,7 @@ var satisfactionPerSprint = (function(gen, sprint) {
         }
     }
     return (total/ gen.ratings.length);
-})
-
-// var dontAchieveHseSkillsPerSprint = (function(gen, sprint) {
-//     var total = 0;
-//     for (var i = 0; i < totalStudents(gen); i++) {
-//         if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.hse <= 840) {
-//             total++;
-//         }
-//     }
-//     return total;
-// });
+});
 
 /* Función que calcula el puntaje promedio de profesores */
 var averageTeacherRating = (function(gen) {
@@ -448,7 +432,7 @@ var teacherRatingPerSprint = (function(gen, sprint) {
         }
     }
     return Math.round((total / gen.ratings.length) * 100) / 100;
-})
+});
 
 /* Función que calcula el puntaje promedio de jedi masters */
 var averageJediRating = (function(gen) {
@@ -459,6 +443,7 @@ var averageJediRating = (function(gen) {
     return Math.round((total / gen.ratings.length) * 100) / 100;
 });
 
+/* Función que calcula el puntaje promedio de jedi masters por sprint */
 var jediRatingPerSprint = (function(gen, sprint) {
     var total = 0;
     for (var i = 0; i < gen.ratings.length; i++) {
@@ -473,7 +458,6 @@ var jediRatingPerSprint = (function(gen, sprint) {
 
 
 /* Función que genera los títulos de cada sede */
-
 var locationName = (function(gen) {
     if (gen == genAQP20162) {
         document.getElementById("location-name").innerHTML = "Arequipa, Perú 2016 - II";
@@ -514,7 +498,6 @@ var percentageColor = (function(percentageAchievement, element) {
 });
 
 /* Función que creará los datos necesarios por sede */
-
 var addEvent = (function(id, gen, totalSprints) {
     id.addEventListener("click", function() {
         locationName(gen);
