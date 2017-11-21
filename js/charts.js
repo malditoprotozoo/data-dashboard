@@ -1,6 +1,6 @@
 var chartEnrolled = (function(gen) {
     var chart = new CanvasJS.Chart("chart-enrollment", {
-        height: 200,
+        height: 180,
         width: 300,
         animationEnabled: true,
         theme: "light2",
@@ -30,7 +30,7 @@ var chartEnrolled = (function(gen) {
 
 var chartAchievement = (function(gen) {
     var chart = new CanvasJS.Chart("chart-achievement", {
-        height: 200,
+        height: 180,
         width: 300,
         animationEnabled: true,
         theme: "light2",
@@ -59,7 +59,7 @@ var chartAchievement = (function(gen) {
 
 var chartNps = (function(gen) {
     var chart = new CanvasJS.Chart("chart-nps", {
-        height: 200,
+        height: 180,
         width: 300,
         animationEnabled: true,
         theme: "light2",
@@ -200,7 +200,7 @@ var pieChartHseSkills = (function(gen, totalSprints) {
 
 var chartSatisfaction = (function(gen) {
     var chart = new CanvasJS.Chart("chart-satisfaction", {
-        height: 200,
+        height: 180,
         width: 300,
         animationEnabled: true,
         theme: "light2",
@@ -229,7 +229,7 @@ var chartSatisfaction = (function(gen) {
 
 var chartTeacherRating = (function(gen) {
     var chart = new CanvasJS.Chart("chart-teacher-rating", {
-        height: 200,
+        height: 180,
         width: 300,
         animationEnabled: true,
         theme: "light2",
@@ -258,7 +258,7 @@ var chartTeacherRating = (function(gen) {
 
 var chartJediRating = (function(gen) {
     var chart = new CanvasJS.Chart("chart-jedi-rating", {
-        height: 200,
+        height: 180,
         width: 300,
         animationEnabled: true,
         theme: "light2",
