@@ -440,6 +440,16 @@ var averageTeacherRating = (function(gen) {
     return Math.round((total / gen.ratings.length) * 100) / 100;
 });
 
+var teacherRatingPerSprint = (function(gen, sprint) {
+    var total = 0;
+    for (var i = 0; i < gen.ratings.length; i++) {
+        if (gen.ratings[sprint - 1] !== undefined) {
+            total+= gen.ratings[sprint - 1].teacher;
+        }
+    }
+    return Math.round((total / gen.ratings.length) * 100) / 100;
+})
+
 /* Función que calcula el puntaje promedio de jedi masters */
 var averageJediRating = (function(gen) {
     var total = 0;
@@ -524,6 +534,7 @@ var addEvent = (function(id, gen, totalSprints) {
         document.getElementById("student-sat-percentage").innerHTML = averageSatisfactionPercencentage(gen) + "%";
         chartSatisfaction(gen);
         document.getElementById("teacher-rat-overall").innerHTML = averageTeacherRating(gen);
+        chartTeacherRating(gen);
         document.getElementById("jedi-rating-overall").innerHTML = averageJediRating(gen);
         dropdownCity.classList.remove("visible");
         dropdownCity.classList.add("invisible");

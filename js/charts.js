@@ -227,6 +227,35 @@ var chartSatisfaction = (function(gen) {
     chart.render();
 });
 
+var chartTeacherRating = (function(gen) {
+    var chart = new CanvasJS.Chart("chart-teacher-rating", {
+        height: 200,
+        width: 300,
+        animationEnabled: true,
+        theme: "light2",
+        axisY: {
+            includeZero: true
+        },
+        data: [{
+            type: "line",
+            dataPoints: [{
+                y: teacherRatingPerSprint(gen, 1),
+                label: "Sprint 1"
+            }, {
+                y: teacherRatingPerSprint(gen, 2),
+                label: "Sprint 2"
+            }, {
+                y: teacherRatingPerSprint(gen, 3),
+                label: "Sprint 3"
+            }, {
+                y: teacherRatingPerSprint(gen, 4),
+                label: "Sprint 4"
+            }]
+        }]
+    });
+    chart.render();
+});
+
 function explodePie(e) {
     if (typeof(e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
         e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
