@@ -142,6 +142,36 @@ var pieChartTechSkills = (function(gen, totalSprints) {
         chart.render();
     });
 
+var chartHseSkills = (function(gen) {
+    var chart = new CanvasJS.Chart("chart-hse-skills", {
+        height: 330,
+        width: 590,
+        animationEnabled: true,
+        theme: "light2",
+        axisY: {
+            title: "Students"
+        },
+        data: [{
+            type: "column",
+            color: "#599ae4",
+            dataPoints: [{
+                y: achieveHseSkillsPerSprint(gen, 1),
+                label: "Sprint 1"
+            }, {
+                y: achieveHseSkillsPerSprint(gen, 2),
+                label: "Sprint 2"
+            }, {
+                y: achieveHseSkillsPerSprint(gen, 3),
+                label: "Sprint 3"
+            }, {
+                y: achieveHseSkillsPerSprint(gen, 4),
+                label: "Sprint 4"
+            }]
+        }]
+    });
+    chart.render();
+});
+
 var pieChartHseSkills = (function(gen, totalSprints) {
         var chart = new CanvasJS.Chart("pie-chart-hse", {
         	width: 250,

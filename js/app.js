@@ -116,6 +116,7 @@ var enrolledStudentsPerSprint = (function(gen, sprint) {
     return total;
 });
 
+
 /* Función que determina cuántas estudiantes dejaron de estudiar en determinada generación
 en Laboratoria, en total NO POR SPRINT */
 var dropoutStudentsTotal = (function(gen) {
@@ -155,6 +156,7 @@ var promotersAveragePercentage = (function(gen) {
     return Math.round(total / gen.ratings.length);
 });
 
+
 /* Función que calcula el porcentaje promedio de estudiantes que ni promovería ni no promovería
 Laboratoria */
 var passiveAveragePercentage = (function(gen) {
@@ -174,9 +176,18 @@ var detractorsAveragePercentage = (function(gen) {
     return Math.round(total / gen.ratings.length);
 });
 
-/* Función que calcula el NPS */
+/* Función que calcula el NPS global */
 var calculateNPS = (function(gen) {
     return Math.round(promotersAveragePercentage(gen) - detractorsAveragePercentage(gen));
+});
+
+/* Función que calcula el NPS por sprint */
+
+var calculateNpsPerSprint = (function(gen, sprint) {
+    if (gen.ratings[sprint - 1] !== undefined) {
+        var result = (gen.ratings[sprint - 1].nps.promoters - gen.ratings[sprint - 1].nps.detractors);
+    }
+    return result;
 });
 
 /* Función que crea un array con las estudiantes activas  */
@@ -201,6 +212,16 @@ var achieveTechSkillsPerSprint = (function(gen, sprint) {
     var total = 0;
     for (var i = 0; i < totalStudents(gen); i++) {
         if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.tech >= 1260) {
+            total++;
+        }
+    }
+    return total;
+});
+
+var dontAchieveTechSkillsPerSprint = (function(gen, sprint) {
+    var total = 0;
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.tech <= 1260) {
             total++;
         }
     }
@@ -240,6 +261,14 @@ var averageTechStudents = (function(gen, totalSprints) {
     return parseInt(total / totalSprints);
 });
 
+var averageFailsTechStudents = (function(gen, totalSprints) {
+    var total = 0;
+    for (var i = 1; i <= totalSprints; i++) {
+        total += dontAchieveTechSkillsPerSprint(gen, i);
+    }
+    return parseInt(total / totalSprints);
+});
+
 /* Función que calcula el porcentaje de alumnas que cumplieron la meta tech durante todos
 los sprints disponibles */
 var percentageTechStudents = (function(gen, totalSprints) {
@@ -252,6 +281,16 @@ var achieveHseSkillsPerSprint = (function(gen, sprint) {
     var total = 0;
     for (var i = 0; i < totalStudents(gen); i++) {
         if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.hse >= 840) {
+            total++;
+        }
+    }
+    return total;
+});
+
+var dontAchieveHseSkillsPerSprint = (function(gen, sprint) {
+    var total = 0;
+    for (var i = 0; i < totalStudents(gen); i++) {
+        if (gen.students[i].sprints[sprint - 1] !== undefined && gen.students[i].sprints[sprint - 1].score.hse <= 840) {
             total++;
         }
     }
@@ -278,6 +317,14 @@ var averagesHsePerSprints = (function(gen, totalSprints) {
         arr.push(achieveHseSkillsPerSprint(gen, i));
     }
     return arr;
+});
+
+var averageFailsHseStudents = (function(gen, totalSprints) {
+    var total = 0;
+    for (var i = 1; i <= totalSprints; i++) {
+        total += dontAchieveHseSkillsPerSprint(gen, i);
+    }
+    return parseInt(total / totalSprints);
 });
 
 /* Función que calcula el promedio de estudiantes que cumplieron la meta hse durante
@@ -421,6 +468,7 @@ var addEvent = (function(id, gen, totalSprints) {
         document.getElementById("passive").innerHTML = passiveAveragePercentage(gen) + "% ";
         document.getElementById("detractors").innerHTML = detractorsAveragePercentage(gen) + "% ";
         document.getElementById("nps-counter").innerHTML = calculateNPS(gen) + "%";
+        chartNps(gen);
         percentageColor(calculateNPS(gen), document.getElementById("nps-counter"));
         document.getElementById("target").innerHTML = averageTotalStudents(gen, totalSprints);
         chartAchievement(gen);
@@ -429,9 +477,13 @@ var addEvent = (function(id, gen, totalSprints) {
         document.getElementById("tech-skills-count").innerHTML = averageTechStudents(gen, totalSprints);
         document.getElementById("tech-skills-percentage").innerHTML = percentageTechStudents(gen, totalSprints) + "%";
         percentageColor(percentageTechStudents(gen, totalSprints), document.getElementById("tech-skills-percentage"));
+        chartTechSkills(gen);
+        pieChartTechSkills(gen, totalSprints);
         document.getElementById("life-skills-counter").innerHTML = averageHseStudents(gen, totalSprints);
         document.getElementById("life-skills-percentage").innerHTML = percentageHseStudents(gen, totalSprints) + "%";
         percentageColor(percentageHseStudents(gen, totalSprints), document.getElementById("life-skills-percentage"));
+        chartHseSkills(gen);
+        pieChartHseSkills(gen, totalSprints);
         document.getElementById("student-sat-percentage").innerHTML = averageSatisfactionPercencentage(gen) + "%";
         document.getElementById("teacher-rat-overall").innerHTML = averageTeacherRating(gen);
         document.getElementById("jedi-rating-overall").innerHTML = averageJediRating(gen);
