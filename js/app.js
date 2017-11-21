@@ -489,7 +489,6 @@ var addEvent = (function(id, gen, totalSprints) {
         document.getElementById("jedi-rating-overall").innerHTML = averageJediRating(gen);
         dropdownCity.classList.remove("visible");
         dropdownCity.classList.add("invisible");
-        divData.style.display = "block";
         overview.classList.remove("selected");
         overviewContent.style.display = "none";
     })
