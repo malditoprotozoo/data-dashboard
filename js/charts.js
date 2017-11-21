@@ -129,13 +129,13 @@ var pieChartTechSkills = (function(gen, totalSprints) {
             data: [{
                 type: "pie",
                 showInLegend: true,
-                toolTipContent: "{name}: <strong>{y}</strong>",
+                toolTipContent: "{name}: <strong>{y}%</strong>",
                 dataPoints: [{
-                    y: averageTechStudents(gen, totalSprints),
-                    name: "# Students that meet the target"
+                    y: Math.round((averageTechStudents(gen, totalSprints)*100)/ totalStudents(gen)),
+                    name: "% Students that meet the target"
                 }, {
-                    y: averageFailsTechStudents(gen, totalSprints),
-                    name: "# Students that don't meet the target"
+                    y: Math.round((averageFailsTechStudents(gen, totalSprints)*100)/ totalStudents(gen)),
+                    name: "% Students that don't meet the target"
                 }, ]
             }]
         });
@@ -185,13 +185,13 @@ var pieChartHseSkills = (function(gen, totalSprints) {
             data: [{
                 type: "pie",
                 showInLegend: true,
-                toolTipContent: "{name}: <strong>{y}</strong>",
+                toolTipContent: "{name}: <strong>{y}%</strong>",
                 dataPoints: [{
-                    y: averageHseStudents(gen, totalSprints),
-                    name: "# Students that meet the target"
+                    y: Math.round((averageHseStudents(gen, totalSprints)*100)/ enrolledStudentsTotal(gen)),
+                    name: "% Students that meet the target"
                 }, {
-                    y: averageFailsHseStudents(gen, totalSprints),
-                    name: "# Students that don't meet the target"
+                    y: Math.round((averageFailsHseStudents(gen, totalSprints)*100)/ enrolledStudentsTotal(gen)),
+                    name: "% Students that don't meet the target"
                 }, ]
             }]
         });
