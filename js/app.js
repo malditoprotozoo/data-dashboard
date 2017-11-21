@@ -550,7 +550,6 @@ var addEvent = (function(id, gen, totalSprints) {
         chartJediRating(gen);
         dropdownCity.classList.remove("visible");
         dropdownCity.classList.add("invisible");
-        overview.classList.remove("selected");
         overviewContent.style.display = "none";
     })
 });
