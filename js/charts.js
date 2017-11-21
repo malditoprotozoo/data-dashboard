@@ -129,7 +129,7 @@ var pieChartTechSkills = (function(gen, totalSprints) {
             data: [{
                 type: "pie",
                 showInLegend: true,
-                toolTipContent: "{name}: <strong>{y}%</strong>",
+                toolTipContent: "{name}: <strong>{y}</strong>",
                 dataPoints: [{
                     y: averageTechStudents(gen, totalSprints),
                     name: "# Students that meet the target"
@@ -185,7 +185,7 @@ var pieChartHseSkills = (function(gen, totalSprints) {
             data: [{
                 type: "pie",
                 showInLegend: true,
-                toolTipContent: "{name}: <strong>{y}%</strong>",
+                toolTipContent: "{name}: <strong>{y}</strong>",
                 dataPoints: [{
                     y: averageHseStudents(gen, totalSprints),
                     name: "# Students that meet the target"
